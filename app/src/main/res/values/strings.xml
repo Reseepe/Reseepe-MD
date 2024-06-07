@@ -1,17 +1,19 @@
 <resources>
     <string name="app_name">Reseepe</string>
-    <string name="message_welcome_page">Mau belajar Android, iOS, Machine Learning, Cloud, Front-End, Back-End, dan bidang IT lainnya? Di Dicoding aja!</string>
-    <string name="title_welcome_page">Selamat datang di Dicoding!</string>
-    <string name="title_signup_page">Lengkapi data dirimu di bawah ini ya</string>
+    <string name="welcome_msg">Welcome to Reseepe, Your Gateway to Inclusive Culinary Adventures!</string>
+    <string name="signup_msg">Enter your details to register</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="message_login_page">Masukkan dulu datamu ya</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login_msg">Please login to continue</string>
+    <string name="go_sign1">Don\'t have an account?</string>
+    <string name="go_sign2"><u>Sign up</u></string>
     <string name="title_login_page">Sudah siap untuk upgrade skill?</string>
-    <string name="name">Nama</string>
+    <string name="name">Name</string>
+    <string name="birthdate">Birthdate</string>
     <string name="message_main_page">Selamat Belajar di Dicoding.</string>
     <string name="greeting">Halo %1$s,</string>
     <string name="logout">Keluar</string>
-    <string name="welcome_msg">Welcome to Reseepe, Your Gateway to Inclusive Culinary Adventures!</string>
     <string name="login">Login</string>
     <string name="sign_up">Register New Account</string>
     <string name="signup">Register</string>
