@@ -15,4 +15,10 @@
     <string name="login">Login</string>
     <string name="sign_up">Register New Account</string>
     <string name="signup">Register</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_scan">Scan</string>
+    <string name="title_bookmarks">Bookmarks</string>
+    <string name="title_profile">Profile</string>
+
 </resources>
