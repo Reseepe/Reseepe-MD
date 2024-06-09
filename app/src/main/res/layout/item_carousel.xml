@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:src="@drawable/baseline_bookmark_border_24"
+            android:tint="@color/primary_400"
+            android:backgroundTint="@color/white"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/primary_400">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/title_recipe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="@string/recipe_name"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="8dp"
+            >
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/baseline_time_24"
+
+                android:text="@string/recipe_duration"
+                android:textSize="12sp"
+                android:textColor="#E8E8E8"
+                android:gravity="center_vertical"
+                android:drawablePadding="2dp"/>
+
+            <TextView
+                android:id="@+id/ingredients_quantity"
+                android:layout_width="124dp"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/baseline_grocery_24"
+                android:textSize="12sp"
+                android:text="@string/recipe_ingredients_qty"
+                android:textColor="#E8E8E8"
+                android:gravity="center_vertical"
+                android:drawablePadding="2dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

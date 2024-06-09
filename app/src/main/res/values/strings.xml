@@ -20,5 +20,8 @@
     <string name="title_scan">Scan</string>
     <string name="title_bookmarks">Bookmarks</string>
     <string name="title_profile">Profile</string>
-
+    
+    <string name="recipe_name">Indonesian Fried Rice</string>
+    <string name="recipe_duration">12 Min</string>
+    <string name="recipe_ingredients_qty">6 Ingredients</string>
 </resources>

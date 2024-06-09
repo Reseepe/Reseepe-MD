@@ -1,21 +1,19 @@
 package com.capstone.reseepe.ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.FragmentHomeBinding
+import com.capstone.reseepe.ui.adapter.CarouselAdapter
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -29,10 +27,16 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        // Inisialisasi ViewPager2 dan Adapter
+        val viewPager: ViewPager2 = binding.viewPager
+        val images = listOf(
+            R.drawable.exp_img,
+            R.drawable.exp_img,
+            R.drawable.exp_img,
+            )
+        val adapter = CarouselAdapter(images)
+        viewPager.adapter = adapter
+
         return root
     }
 
