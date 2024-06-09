@@ -15,6 +15,7 @@ import com.capstone.reseepe.R
 import com.capstone.reseepe.data.pref.UserModel
 import com.capstone.reseepe.databinding.ActivityLoginBinding
 import com.capstone.reseepe.ui.main.MainActivity
+import com.capstone.reseepe.ui.signup.SignupActivity
 import com.capstone.reseepe.util.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
@@ -30,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
-        playAnimation()
     }
 
     private fun setupView() {
@@ -47,13 +47,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.loginButton.setOnClickListener {
+
+        binding.buttonLogin.setOnClickListener {
             val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
             viewModel.saveSession(UserModel(email, "sample_token"))
             AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
-                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-                setPositiveButton("Lanjut") { _, _ ->
+                setTitle("Login Successful")
+                setMessage("Welcome to Reseepe, Let's get cooking")
+                setPositiveButton("Next") { _, _ ->
                     val intent = Intent(context, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
@@ -63,40 +65,10 @@ class LoginActivity : AppCompatActivity() {
                 show()
             }
         }
-    }
 
-    private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
-
-        val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
-        val message =
-            ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(100)
-        val emailTextView =
-            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
-        val emailEditTextLayout =
-            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val passwordTextView =
-            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
-        val passwordEditTextLayout =
-            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(100)
-
-        AnimatorSet().apply {
-            playSequentially(
-                title,
-                message,
-                emailTextView,
-                emailEditTextLayout,
-                passwordTextView,
-                passwordEditTextLayout,
-                login
-            )
-            startDelay = 100
-        }.start()
+        binding.tvSignup2.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
+        }
     }
 
 }

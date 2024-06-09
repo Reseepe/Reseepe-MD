@@ -2,6 +2,7 @@ package com.capstone.reseepe.ui.signup
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.DatePickerDialog
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.ActivitySignupBinding
+import java.util.Calendar
 
 
 class SignupActivity : AppCompatActivity() {
@@ -23,7 +25,6 @@ class SignupActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
-        playAnimation()
     }
 
     private fun setupView() {
@@ -40,11 +41,11 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.signupButton.setOnClickListener {
+        binding.buttonSignup.setOnClickListener {
             val email = binding.emailEditText.text.toString()
 
             AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
+                setTitle("Register Successful")
                 setMessage("Akun dengan $email sudah jadi nih. Yuk, login dan belajar coding.")
                 setPositiveButton("Lanjut") { _, _ ->
                     finish()
@@ -53,43 +54,31 @@ class SignupActivity : AppCompatActivity() {
                 show()
             }
         }
-    }
 
-    private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
+        binding.birthdateEditText.setOnClickListener{
 
-        val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
-        val nameTextView =
-            ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
-        val nameEditTextLayout =
-            ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val emailTextView =
-            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
-        val emailEditTextLayout =
-            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val passwordTextView =
-            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
-        val passwordEditTextLayout =
-            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val signup = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(100)
+            val c = Calendar.getInstance()
 
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
 
-        AnimatorSet().apply {
-            playSequentially(
-                title,
-                nameTextView,
-                nameEditTextLayout,
-                emailTextView,
-                emailEditTextLayout,
-                passwordTextView,
-                passwordEditTextLayout,
-                signup
+            val datePickerDialog = DatePickerDialog(
+
+                this,
+                { view, year, monthOfYear, dayOfMonth ->
+
+                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    binding.birthdateEditText.setText(dat)
+                },
+
+                year,
+                month,
+                day
             )
-            startDelay = 100
-        }.start()
+
+            datePickerDialog.show()
+        }
+
     }
 }
