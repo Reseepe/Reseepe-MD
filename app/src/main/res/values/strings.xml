@@ -22,8 +22,18 @@
     <string name="title_scan">Scan</string>
     <string name="title_bookmarks">Bookmarks</string>
     <string name="title_profile">Profile</string>
-    
+
     <string name="recipe_name">Indonesian Fried Rice</string>
     <string name="recipe_duration">12 Min</string>
     <string name="recipe_ingredients_qty">6 Ingredients</string>
+
+    <string name="scan_msg">Scan Your Ingredients: Find Recipes Instantly!</string>
+    <string name="scan_explain_msg">Discover delicious recipes with the ingredients you have on hand. Simply upload an image of your ingredients to get started!</string>
+    <string name="scan_example_msg">Make sure your photo is clear and well-lit, like the example below!</string>
+    <string name="scan_your">Your ingredient’s snapshot</string>
+
+    <string name="camera">Take a Picture</string>
+    <string name="gallery">Browse My Gallery</string>
+    <string name="upload">Continue</string>
+
 </resources>
