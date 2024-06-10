@@ -36,4 +36,10 @@
     <string name="gallery">Browse My Gallery</string>
     <string name="upload">Continue</string>
 
+    <string name="result_msg">Result</string>
+    <string name="ingredient_scan_txt">The ingredients that you have..</string>
+
+    <string name="rcp_gen_msg">Recipes based on your ingredients</string>
+    <string name="bookmark_msg">Your Bookmarked Recipes</string>
+
 </resources>

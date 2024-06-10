@@ -17,10 +17,12 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.navigation.fragment.findNavController
 import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.FragmentBookmarksBinding
 import com.capstone.reseepe.databinding.FragmentScanBinding
 import com.capstone.reseepe.ui.bookmarks.BookmarksViewModel
+import com.capstone.reseepe.ui.result.ResultFragment
 import com.capstone.reseepe.ui.scan.CameraActivity.Companion.CAMERAX_RESULT
 
 class ScanFragment : Fragment() {
@@ -67,6 +69,11 @@ class ScanFragment : Fragment() {
 
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.cameraButton.setOnClickListener { startCameraX() }
+        binding.buttonUpload.setOnClickListener {
+            findNavController().navigate(R.id.action_scanFragment_to_resultFragment)
+        }
+
+
 
         return root
     }
