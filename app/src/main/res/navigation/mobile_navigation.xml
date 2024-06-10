@@ -38,4 +38,15 @@
         android:name="com.capstone.reseepe.ui.result.ResultFragment"
         android:label="Result Fragment"
         tools:layout="@layout/fragment_result" />
+
+    <fragment
+        android:id="@+id/detailRecipeFragment"
+        android:name="com.capstone.reseepe.ui.detail.DetailRecipeFragment"
+        android:label="Detail Recipe"
+        tools:layout="@layout/fragment_detail_recipe">
+    </fragment>
+
+    <action
+        android:id="@+id/action_resultFragment_to_detailRecipeFragment"
+        app:destination="@id/detailRecipeFragment" />
 </navigation>

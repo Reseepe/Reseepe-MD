@@ -42,4 +42,8 @@
     <string name="rcp_gen_msg">Recipes based on your ingredients</string>
     <string name="bookmark_msg">Your Bookmarked Recipes</string>
 
+    <string name="detail_msg">Recipe</string>
+    <string name="desc_ex">Indonesian fried rice, known as Nasi Goreng, is a flavorful stir-fried rice dish. It\'s different from other fried rice variations because it uses a special sweet soy sauce called kecap manis, which gives it a unique sweet and savory taste.  It often includes ingredients like shrimp paste for umami, aromatics like shallots and garlic, and protein like chicken or shrimp. </string>
+    <string name="ingredient_miss_txt">The ingredients you\'re missing</string>
+    <string name="instruction_txt">Instructions :</string>
 </resources>
