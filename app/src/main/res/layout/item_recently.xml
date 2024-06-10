@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="11dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="4dp">
+
+        <ImageView
+            android:id="@+id/iv_recipe_img"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_recipe_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recipe Title"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp"
+                >
+
+                <TextView
+                    android:id="@+id/duration"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/baseline_time_24"
+                    android:drawableTint="@color/gray"
+                    android:text="@string/recipe_duration"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_600"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="2dp"/>
+
+                <TextView
+                    android:id="@+id/ingredients_quantity"
+                    android:layout_width="124dp"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/baseline_grocery_24"
+                    android:drawableTint="@color/gray"
+                    android:textSize="12sp"
+                    android:text="@string/recipe_ingredients_qty"
+                    android:textColor="@color/gray_600"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="2dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_forward_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_forward"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

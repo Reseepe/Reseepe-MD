@@ -13,7 +13,6 @@
     <string name="birthdate">Birthdate</string>
     <string name="message_main_page">Selamat Belajar di Dicoding.</string>
     <string name="greeting">Halo %1$s,</string>
-    <string name="logout">Keluar</string>
     <string name="login">Login</string>
     <string name="sign_up">Register New Account</string>
     <string name="signup">Register</string>
@@ -26,4 +25,19 @@
     <string name="recipe_name">Indonesian Fried Rice</string>
     <string name="recipe_duration">12 Min</string>
     <string name="recipe_ingredients_qty">6 Ingredients</string>
+    <string name="tv_greeting_msg">What are we going to cook today?</string>
+    <string name="tv_greeting_title">Hello, Fattah!</string>
+    <string name="recommended_recipes">Recommended Recipes</string>
+    <string name="recently_viewed">Recently Viewed</string>
+    <string name="hint_carousel">Swipe to see more</string>
+
+    <string name="profile_image">Profile Image</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="logout">Log out</string>
+    <string name="help_support">Help &amp; Support</string>
+    <string name="about_app">About App</string>
+    <string name="confirmation_logout">Are you sure want to logout?</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes_i_m_sure">Yes, I\'m sure</string>
 </resources>
