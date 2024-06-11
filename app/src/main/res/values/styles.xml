@@ -4,4 +4,13 @@
         <item name="itemIconTint">@color/bottom_nav_item_color_selector</item>
         <item name="itemTextColor">@color/bottom_nav_item_color_selector</item>
     </style>
+
+    <style name="RoundedSquare">
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="CirleButton">
+        <item name="cornerSize">900%</item>
+    </style>
+
 </resources>

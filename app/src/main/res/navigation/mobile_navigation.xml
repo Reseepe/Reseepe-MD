@@ -15,7 +15,11 @@
         android:id="@+id/navigation_scan"
         android:name="com.capstone.reseepe.ui.scan.ScanFragment"
         android:label="@string/title_scan"
-        tools:layout="@layout/fragment_scan" />
+        tools:layout="@layout/fragment_scan">
+        <action
+            android:id="@+id/action_scanFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_bookmarks"
@@ -28,4 +32,21 @@
         android:name="com.capstone.reseepe.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.capstone.reseepe.ui.result.ResultFragment"
+        android:label="Result Fragment"
+        tools:layout="@layout/fragment_result" />
+
+    <fragment
+        android:id="@+id/detailRecipeFragment"
+        android:name="com.capstone.reseepe.ui.detail.DetailRecipeFragment"
+        android:label="Detail Recipe"
+        tools:layout="@layout/fragment_detail_recipe">
+    </fragment>
+
+    <action
+        android:id="@+id/action_resultFragment_to_detailRecipeFragment"
+        app:destination="@id/detailRecipeFragment" />
 </navigation>

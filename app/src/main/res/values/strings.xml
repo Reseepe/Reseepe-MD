@@ -21,10 +21,30 @@
     <string name="title_scan">Scan</string>
     <string name="title_bookmarks">Bookmarks</string>
     <string name="title_profile">Profile</string>
-    
+
     <string name="recipe_name">Indonesian Fried Rice</string>
     <string name="recipe_duration">12 Min</string>
     <string name="recipe_ingredients_qty">6 Ingredients</string>
+    <string name="scan_msg">Scan Your Ingredients: Find Recipes Instantly!</string>
+    <string name="scan_explain_msg">Discover delicious recipes with the ingredients you have on hand. Simply upload an image of your ingredients to get started!</string>
+    <string name="scan_example_msg">Make sure your photo is clear and well-lit, like the example below!</string>
+    <string name="scan_your">Your ingredient’s snapshot</string>
+
+    <string name="camera">Take a Picture</string>
+    <string name="gallery">Browse My Gallery</string>
+    <string name="upload">Continue</string>
+
+    <string name="result_msg">Result</string>
+    <string name="ingredient_scan_txt">The ingredients that you have..</string>
+
+    <string name="rcp_gen_msg">Recipes based on your ingredients</string>
+    <string name="bookmark_msg">Your Bookmarked Recipes</string>
+
+    <string name="detail_msg">Recipe</string>
+    <string name="desc_ex">Indonesian fried rice, known as Nasi Goreng, is a flavorful stir-fried rice dish. It\'s different from other fried rice variations because it uses a special sweet soy sauce called kecap manis, which gives it a unique sweet and savory taste.  It often includes ingredients like shrimp paste for umami, aromatics like shallots and garlic, and protein like chicken or shrimp. </string>
+    <string name="ingredient_miss_txt">The ingredients you\'re missing</string>
+    <string name="instruction_txt">Instructions :</string>
+
     <string name="tv_greeting_msg">What are we going to cook today?</string>
     <string name="tv_greeting_title">Hello, Fattah!</string>
     <string name="recommended_recipes">Recommended Recipes</string>
