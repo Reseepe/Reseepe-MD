@@ -3,10 +3,11 @@ package com.capstone.reseepe.util
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.capstone.reseepe.data.UserRepository
+import com.capstone.reseepe.data.repository.UserRepository
 import com.capstone.reseepe.di.Injection
 import com.capstone.reseepe.ui.login.LoginViewModel
 import com.capstone.reseepe.ui.main.MainViewModel
+import com.capstone.reseepe.ui.signup.SignupViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -18,6 +19,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
+                SignupViewModel() as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
