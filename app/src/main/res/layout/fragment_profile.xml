@@ -10,7 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_profile_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginStart="22dp"
+            android:textColor="@color/primary_900"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+
+            android:text="@string/profile"/>
 
         <!-- Profile Section -->
         <LinearLayout
@@ -18,7 +33,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_marginTop="60dp">
 
             <ImageView
                 android:layout_width="48dp"
@@ -51,6 +67,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/iv_edit_profile"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_edit"
@@ -128,6 +145,7 @@
             android:textSize="16sp" />
 
         <LinearLayout
+            android:id="@+id/btn_help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -151,6 +169,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btn_about_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

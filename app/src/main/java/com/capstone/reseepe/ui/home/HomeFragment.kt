@@ -37,9 +37,9 @@ class HomeFragment : Fragment() {
         // Inisialisasi ViewPager2 dan Adapter
         val viewPager: ViewPager2 = binding.viewPager
         val images = listOf(
-            R.drawable.exp_img,
-            R.drawable.exp_img,
-            R.drawable.exp_img,
+            R.drawable.default_val_rcp,
+            R.drawable.default_val_rcp,
+            R.drawable.default_val_rcp,
         )
         val adapter = CarouselAdapter(images)
         viewPager.adapter = adapter
@@ -66,11 +66,11 @@ class HomeFragment : Fragment() {
         // Inisialisasi RecyclerView dan Adapter untuk Recently Viewed
         val rvRecently = binding.rvRecently
         val recipeItems = listOf(
-            RecipeItem(R.drawable.exp_img, "Recipe 1", "30 mins", "10 ingredients"),
-            RecipeItem(R.drawable.exp_img, "Recipe 2", "45 mins", "8 ingredients"),
-            RecipeItem(R.drawable.exp_img, "Recipe 3", "20 mins", "5 ingredients"),
-            RecipeItem(R.drawable.exp_img, "Recipe 4", "20 mins", "5 ingredients"),
-            RecipeItem(R.drawable.exp_img, "Recipe 5", "20 mins", "5 ingredients"),
+            RecipeItem(R.drawable.default_val_rcp, "Recipe 1", "30 mins", "10 ingredients"),
+            RecipeItem(R.drawable.default_val_rcp, "Recipe 2", "45 mins", "8 ingredients"),
+            RecipeItem(R.drawable.default_val_rcp, "Recipe 3", "20 mins", "5 ingredients"),
+            RecipeItem(R.drawable.default_val_rcp, "Recipe 4", "20 mins", "5 ingredients"),
+            RecipeItem(R.drawable.default_val_rcp, "Recipe 5", "20 mins", "5 ingredients"),
         )
         val recentlyViewedAdapter = RecentlyViewedAdapter(recipeItems) { item ->
             // Handle item click, navigasi ke detail fragment

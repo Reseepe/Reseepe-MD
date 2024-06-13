@@ -15,15 +15,16 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingEnd="8dp"
-        android:paddingStart="4dp">
+        android:paddingStart="8dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_recipe_img"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_marginEnd="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:src="@drawable/ic_launcher_foreground"
+            app:shapeAppearanceOverlay="@style/RoundedImage"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -83,7 +84,8 @@
             android:src="@drawable/ic_arrow_forward"
             android:layout_marginStart="8dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:layout_marginEnd="6dp"/>
 
     </LinearLayout>
 

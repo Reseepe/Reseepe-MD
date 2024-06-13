@@ -31,7 +31,20 @@
         android:id="@+id/navigation_profile"
         android:name="com.capstone.reseepe.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_navigation_profile_to_helpSupportFragment"
+            app:destination="@id/helpSupportFragment"
+            app:enterAnim="@android:anim/fade_in" />
+        <action
+            android:id="@+id/action_navigation_profile_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment"
+            app:enterAnim="@android:anim/fade_in" />
+    </fragment>
 
     <fragment
         android:id="@+id/resultFragment"
@@ -49,4 +62,17 @@
     <action
         android:id="@+id/action_resultFragment_to_detailRecipeFragment"
         app:destination="@id/detailRecipeFragment" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.capstone.reseepe.ui.profile.EditProfileFragment"
+        android:label="EditProfileFragment" />
+    <fragment
+        android:id="@+id/helpSupportFragment"
+        android:name="com.capstone.reseepe.ui.profile.HelpSupportFragment"
+        android:label="Help Support"
+        tools:layout="@layout/fragment_help_support" />
+    <fragment
+        android:id="@+id/aboutAppFragment"
+        android:name="com.capstone.reseepe.ui.profile.AboutAppFragment"
+        android:label="AboutAppFragment" />
 </navigation>

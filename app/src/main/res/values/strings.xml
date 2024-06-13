@@ -60,4 +60,33 @@
     <string name="confirmation_logout">Are you sure want to logout?</string>
     <string name="cancel">Cancel</string>
     <string name="yes_i_m_sure">Yes, I\'m sure</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_icon">Profile Icon</string>
+    <string name="save">Save</string>
+    <string name="profile">Profile</string>
+
+    <string name="question_faq_1">How do I use the Scan Page feature to get recipe suggestions?</string>
+    <string name="answer_faq_1">Tap the "Scan Page" icon in the bottom navigation bar. You can take a photo of your ingredients with your camera or choose one from your gallery. The app will identify the ingredients and suggest recipes you can make with them. This helps you use what you have and reduce food waste.</string>
+
+    <string name="question_faq_2">How do I add a recipe to my bookmarks?</string>
+    <string name="answer_faq_2">To add a recipe to your bookmarks, tap the bookmark icon on the recipe. If the bookmark icon is filled with color, it means the recipe has been saved. You can view the recipes you have bookmarked in the "Bookmarked Recipes" section from the bottom navigation bar.</string>
+
+    <string name="question_faq_3">How do I get personalized recipe recommendations?</string>
+    <string name="answer_faq_3">To get personalized recipe recommendations, go to the "Home" tab where you will find a section for recommended recipes. These recommendations are based on your previous interactions, bookmarked recipes, and the ingredients you frequently use. This ensures that you always have fresh and relevant recipe suggestions.</string>
+    <string name="faq">FAQ</string>
+    <string name="about_reseepe">Welcome to Reseepe, your ultimate cooking companion app designed to make meal planning and cooking effortless and enjoyable. Whether you\'re a seasoned chef or just starting out in the kitchen, Reseepe is here to inspire you with delicious recipes tailored to your preferences and ingredients.</string>
+    <string name="about_reseepe_title">About Reseepe</string>
+    <string name="key_features_title">Key Features</string>
+    <string name="key_features_content">
+        1. Scan Page: Use the innovative Scan Page feature to take a photo of your ingredients and receive instant recipe suggestions.\n
+        \n2. Bookmark Your Favorites: Easily save your favorite recipes to revisit them later for quick access.\n
+        \n3. Recipe Recommendations: Get personalized recipe recommendations based on your taste preferences and available ingredients.\n
+    </string>
+    <string name="our_mission_title">Our Mission</string>
+    <string name="our_mission_content">At Reseepe, we believe that cooking should be fun, creative, and accessible to everyone. Our mission is to empower home cooks by providing them with the tools and inspiration they need to create delicious meals effortlessly. Whether you\'re planning a weeknight dinner or preparing for a special occasion, Reseepe is your trusted companion in the kitchen.</string>
+    <string name="get_started_title">Get Started</string>
+    <string name="get_started_content">Download Reseepe today and embark on a culinary journey filled with delightful flavors and endless possibilities. Join our community of food enthusiasts and experience the joy of cooking like never before!</string>
+    <string name="logo_reseepe">logo_reseepe</string>
+
 </resources>
