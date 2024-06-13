@@ -7,6 +7,7 @@ import com.capstone.reseepe.data.repository.UserRepository
 import com.capstone.reseepe.di.Injection
 import com.capstone.reseepe.ui.login.LoginViewModel
 import com.capstone.reseepe.ui.main.MainViewModel
+import com.capstone.reseepe.ui.profile.ProfileViewModel
 import com.capstone.reseepe.ui.signup.SignupViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -22,6 +23,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
                 SignupViewModel() as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

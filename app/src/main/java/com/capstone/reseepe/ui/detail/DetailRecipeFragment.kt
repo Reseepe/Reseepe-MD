@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.FragmentBookmarksBinding
@@ -25,6 +26,10 @@ class DetailRecipeFragment : Fragment() {
     ): View? {
         _binding = FragmentDetailRecipeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         val flexboxLayoutManager1 = FlexboxLayoutManager(context)
         val flexboxLayoutManager2 = FlexboxLayoutManager(context)

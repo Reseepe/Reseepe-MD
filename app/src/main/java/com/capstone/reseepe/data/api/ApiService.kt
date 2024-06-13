@@ -1,9 +1,12 @@
 package com.capstone.reseepe.data.api
 
 import com.capstone.reseepe.data.response.LoginResponse
+import com.capstone.reseepe.data.response.ProfileResponse
 import com.capstone.reseepe.data.response.RegisterResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -23,5 +26,10 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
+
+    @GET("profile")
+    suspend fun getProfile(
+        @Header("Authorization") token: String,
+    ): ProfileResponse
 
 }

@@ -22,7 +22,7 @@ import com.capstone.reseepe.util.ViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity : AppCompatActivity(), ProfileFragment.LogoutListener {
+class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
         ViewModelFactory.getInstance(this)
     }
@@ -57,8 +57,5 @@ class MainActivity : AppCompatActivity(), ProfileFragment.LogoutListener {
 
     }
 
-    override fun onLogout() {
-        viewModel.logout()
-    }
 
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.capstone.reseepe.databinding.FragmentEditProfileBinding
 import java.util.Calendar
 
@@ -21,6 +22,10 @@ class EditProfileFragment : Fragment() {
     ): View {
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         setupAction()
 
