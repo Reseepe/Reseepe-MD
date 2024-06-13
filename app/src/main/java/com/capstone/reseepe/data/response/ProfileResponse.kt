@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ProfileResponse(
 
-	@field:SerializedName("User")
+	@field:SerializedName("user")
 	val user: User,
 
 	@field:SerializedName("error")

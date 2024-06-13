@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/profileContainer"
         android:layout_width="match_parent"
@@ -50,10 +57,10 @@
                 android:paddingStart="16dp">
 
                 <TextView
-                    android:id="@+id/tvUserName"
+                        android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rachel Florencia"
+                    android:text="@string/loading"
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
@@ -61,7 +68,7 @@
                     android:id="@+id/tvUserEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="rachelFlor@gmail.com"
+                    android:text="@string/loading"
                     android:textSize="14sp" />
 
             </LinearLayout>

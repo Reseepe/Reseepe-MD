@@ -2,6 +2,7 @@ package com.capstone.reseepe.ui.profile
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,24 +40,22 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        profileViewModel.getSession().observe(viewLifecycleOwner, Observer { userModel ->
-            if (userModel.isLogin) {
-                profileViewModel.fetchProfile(userModel.token)
-            } else {
-                // Handle case where user is not logged in
+        // Show loading indicator
+        binding.progressBar.visibility = View.VISIBLE
+        binding.profileContainer.visibility = View.GONE
+
+        profileViewModel.profile.observe(viewLifecycleOwner, Observer { profileResponse ->
+            // Hide loading indicator
+            binding.progressBar.visibility = View.GONE
+            binding.profileContainer.visibility = View.VISIBLE
+
+            profileResponse?.let {
+                binding.tvUserName.text = it.user.name
+                binding.tvUserEmail.text = it.user.email
             }
         })
 
-        profileViewModel.profile.observe(viewLifecycleOwner, Observer { user ->
-            binding.tvUserName.text = user.name
-            binding.tvUserEmail.text =user.email
-        })
-
-        profileViewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
-            // Handle error message
-            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-        })
-
+        profileViewModel.fetchProfile()
 
         binding.btnLogout.setOnClickListener {
             showLogoutConfirmationDialog(profileViewModel)
