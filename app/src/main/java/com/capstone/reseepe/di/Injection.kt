@@ -1,7 +1,7 @@
 package com.capstone.reseepe.di
 
 import android.content.Context
-import com.capstone.reseepe.data.UserRepository
+import com.capstone.reseepe.data.repository.UserRepository
 import com.capstone.reseepe.data.pref.UserPreference
 import com.capstone.reseepe.data.pref.dataStore
 

@@ -1,4 +1,4 @@
-package com.capstone.reseepe.data
+package com.capstone.reseepe.data.repository
 
 import com.capstone.reseepe.data.pref.UserModel
 import com.capstone.reseepe.data.pref.UserPreference
