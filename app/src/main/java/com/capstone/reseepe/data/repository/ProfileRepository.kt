@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.capstone.reseepe.data.api.ApiConfig
 import com.capstone.reseepe.data.api.ApiService
+import com.capstone.reseepe.data.model.ProfileModel
 import com.capstone.reseepe.data.pref.UserPreference
 import com.capstone.reseepe.data.response.EditProfileResponse
 import com.capstone.reseepe.data.response.ProfileResponse
@@ -17,11 +18,12 @@ class ProfileRepository private constructor(
     private val userPreference: UserPreference
 ) {
 
-    suspend fun getProfileUser() : ProfileResponse {
+    suspend fun getProfileUser() : ProfileModel {
         val user = runBlocking { userPreference.getSession().first() }
         val token = "Bearer ${user.token}"
         Log.d("ProfileRepository", "Token yang request getProfileUser: $token")
-        return ApiConfig.getApiService().getProfile(token)
+        val response = ApiConfig.getApiService().getProfile(token)
+        return response.toProfileModel()
     }
 
     suspend fun resetPassword(oldPassword: String, newPassword: String): ResetPasswordResponse {
@@ -47,4 +49,12 @@ class ProfileRepository private constructor(
             instance ?: ProfileRepository(apiService, userPreference)
             }.also { instance = it }
     }
+}
+
+private fun ProfileResponse.toProfileModel(): ProfileModel {
+    return ProfileModel(
+        name = this.user.name,
+        email = this.user.email,
+        userId = this.user.userId
+    )
 }

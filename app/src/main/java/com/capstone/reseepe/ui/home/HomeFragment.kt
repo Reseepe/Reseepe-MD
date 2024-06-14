@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -14,6 +16,8 @@ import com.capstone.reseepe.data.model.RecipeItem
 import com.capstone.reseepe.databinding.FragmentHomeBinding
 import com.capstone.reseepe.ui.adapter.CarouselAdapter
 import com.capstone.reseepe.ui.adapter.RecentlyViewedAdapter
+import com.capstone.reseepe.ui.profile.ProfileViewModel
+import com.capstone.reseepe.util.ViewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -28,11 +32,33 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val homeViewModel by viewModels<HomeViewModel> {
+            ViewModelFactory.getInstance(requireContext())
+        }
+
+        val profileViewModel by viewModels<ProfileViewModel> {
+            ViewModelFactory.getInstance(requireContext())
+        }
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        ////      Show loading indicator
+        binding.progressBar.visibility = View.VISIBLE
+        binding.homeContainer.visibility = View.GONE
+
+        profileViewModel.userProfile.observe(viewLifecycleOwner, Observer { profileResponse ->
+            // Hide loading indicator
+            binding.progressBar.visibility = View.GONE
+            binding.homeContainer.visibility = View.VISIBLE
+
+            profileResponse?.let {
+                val name = it.name
+                binding.tvTitleMsg.text = "Hello, $name"
+            }
+        })
+
+        profileViewModel.fetchProfile()
 
         // Inisialisasi ViewPager2 dan Adapter
         val viewPager: ViewPager2 = binding.viewPager

@@ -44,14 +44,14 @@ class ProfileFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         binding.profileContainer.visibility = View.GONE
 
-        profileViewModel.profile.observe(viewLifecycleOwner, Observer { profileResponse ->
+        profileViewModel.userProfile.observe(viewLifecycleOwner, Observer { profileResponse ->
             // Hide loading indicator
             binding.progressBar.visibility = View.GONE
             binding.profileContainer.visibility = View.VISIBLE
 
             profileResponse?.let {
-                binding.tvUserName.text = it.user.name
-                binding.tvUserEmail.text = it.user.email
+                binding.tvUserName.text = it.name
+                binding.tvUserEmail.text = it.email
             }
         })
 

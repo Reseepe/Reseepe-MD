@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.capstone.reseepe.data.api.ApiConfig
+import com.capstone.reseepe.data.model.ProfileModel
 import com.capstone.reseepe.data.pref.UserModel
 import com.capstone.reseepe.data.repository.ProfileRepository
 import com.capstone.reseepe.data.repository.UserRepository
@@ -22,8 +23,8 @@ import kotlinx.coroutines.withContext
 
 class ProfileViewModel(private val repository: UserRepository, private val profileRepository: ProfileRepository) : ViewModel() {
 
-    private val _profile = MutableLiveData<ProfileResponse>()
-    val profile: LiveData<ProfileResponse> = _profile
+    private val _userProfile = MutableLiveData<ProfileModel>()
+    val userProfile: LiveData<ProfileModel> = _userProfile
 
     private val _resetPasswordResult = MutableLiveData<ResetPasswordResponse>()
     val resetPasswordResult: LiveData<ResetPasswordResponse> = _resetPasswordResult
@@ -59,7 +60,7 @@ class ProfileViewModel(private val repository: UserRepository, private val profi
         viewModelScope.launch {
             try {
                 val profileResponse = profileRepository.getProfileUser()
-                _profile.value = profileResponse
+                _userProfile.value = profileResponse
             } catch (e: Exception) {
                 Log.e("ProfileViewModel", "Error fetching profile: ${e.message}")
             }
