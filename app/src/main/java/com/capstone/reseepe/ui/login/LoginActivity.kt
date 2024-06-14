@@ -69,8 +69,7 @@ class LoginActivity : AppCompatActivity() {
                     title = "Oops! Unable to log in.",
                     message = "Something went wrong with your login. Please try again.",
                     buttonText = "Try Again"
-                ) {
-                    finish()}
+                ) {}
             } else {
                 showCustomDialog(
                     title = "All set! You're logged in.",

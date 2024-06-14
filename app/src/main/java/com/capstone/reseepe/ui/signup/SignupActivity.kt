@@ -97,9 +97,7 @@ class SignupActivity : AppCompatActivity() {
                     title = "Oops! Unable to complete registration.",
                     message = "Please make sure your passwords input is correct",
                     buttonText = "Try Again"
-                ) {
-                    finish()
-                }
+                ) {}
 
             } else {
                 signupViewModel.register(name, email, birthday, password)
@@ -111,9 +109,7 @@ class SignupActivity : AppCompatActivity() {
                         title = "Oops! Unable to complete registration.",
                         message = "Please check your details and try again",
                         buttonText = "Try Again"
-                    ) {
-                        finish()
-                    }
+                    ) {}
 
                 } else {
                     showCustomDialog(

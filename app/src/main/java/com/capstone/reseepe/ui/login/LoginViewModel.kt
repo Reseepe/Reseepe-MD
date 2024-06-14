@@ -40,6 +40,7 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
                 }
             } catch (e: Exception) {
                 _loginResult.value = LoginResponse(error = true, message = e.message)
+                _isLoading.value = false
             }
         }
     }
