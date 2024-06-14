@@ -2,13 +2,17 @@ package com.capstone.reseepe.ui.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -59,40 +63,62 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.login(email, password)
         }
 
-        loginViewModel.loginResult.observe(this){
+        loginViewModel.loginResult.observe(this) {
             if (it.error == true) {
-                AlertDialog.Builder(this).apply {
-                    setTitle("Oops! Unable to log in.")
-                    setMessage("Something went wrong with your login. Please try again")
-                    setPositiveButton("Try Again") { _, _ ->
-                        finish()
-                    }
-                    create()
-                    show()
-                }
+                showCustomDialog(
+                    title = "Oops! Unable to log in.",
+                    message = "Something went wrong with your login. Please try again.",
+                    buttonText = "Try Again"
+                ) {
+                    finish()}
             } else {
-                AlertDialog.Builder(this).apply {
-                    setTitle("All set! You're logged in.")
-                    setMessage("Continue to explore Reseepe")
-                    setPositiveButton("Continue") { _, _ ->
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
-                    }
-                    create()
-                    show()
+                showCustomDialog(
+                    title = "All set! You're logged in.",
+                    message = "Continue to explore Reseepe",
+                    buttonText = "Continue"
+                ) {
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
                 }
             }
         }
 
         binding.tvSignup2.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
-        }
+                startActivity(Intent(this, SignupActivity::class.java))
+            }
     }
+
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showCustomDialog(title: String, message: String, buttonText: String, onClickAction: () -> Unit) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirmation_auth, null)
+
+        val dialogTitle = dialogView.findViewById<TextView>(R.id.tv_title)
+        val dialogMessage = dialogView.findViewById<TextView>(R.id.tv_message)
+        val dialogButton = dialogView.findViewById<Button>(R.id.conf_btn)
+
+        dialogTitle.text = title
+        dialogMessage.text = message
+        dialogButton.text = buttonText
+        dialogButton.setOnClickListener {
+            onClickAction()
+        }
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        dialogButton.setOnClickListener {
+            onClickAction()
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
 }

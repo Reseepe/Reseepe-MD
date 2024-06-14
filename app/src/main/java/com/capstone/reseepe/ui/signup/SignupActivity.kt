@@ -7,9 +7,12 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -90,11 +93,12 @@ class SignupActivity : AppCompatActivity() {
             val confPassword = binding.confirmPasswordEditText.text.toString()
 
             if (password != confPassword) {
-                AlertDialog.Builder(this).apply {
-                    setTitle("Oops! Unable to complete registration.")
-                    setMessage("Please make sure your passwords input is correct")
-                    create()
-                    show()
+                showCustomDialog(
+                    title = "Oops! Unable to complete registration.",
+                    message = "Please make sure your passwords input is correct",
+                    buttonText = "Try Again"
+                ) {
+                    finish()
                 }
 
             } else {
@@ -103,28 +107,26 @@ class SignupActivity : AppCompatActivity() {
 
             signupViewModel.registerResponse.observe(this) {
                 if (it.error == true) {
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Oops! Unable to complete registration.")
-                        setMessage("Please check your details and try again")
-                        setPositiveButton("Try Again") { _, _ ->
-                            finish()
-                        }
-                        create()
-                        show()
+                    showCustomDialog(
+                        title = "Oops! Unable to complete registration.",
+                        message = "Please check your details and try again",
+                        buttonText = "Try Again"
+                    ) {
+                        finish()
                     }
+
                 } else {
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Great news! You've successfully registered your account")
-                        setMessage("Login to continue using Reseepe")
-                        setPositiveButton("Login Now") { _, _ ->
-                            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(intent)
-                            finish()
-                        }
-                        create()
-                        show()
+                    showCustomDialog(
+                        title = "Great news! You've successfully registered your account",
+                        message = "Login to continue using Reseepe",
+                        buttonText = "Login Now"
+                    ) {
+                        val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
                     }
+
                 }
             }
         }
@@ -134,4 +136,31 @@ class SignupActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
+    private fun showCustomDialog(title: String, message: String, buttonText: String, onClickAction: () -> Unit) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirmation_auth, null)
+
+        val dialogTitle = dialogView.findViewById<TextView>(R.id.tv_title)
+        val dialogMessage = dialogView.findViewById<TextView>(R.id.tv_message)
+        val dialogButton = dialogView.findViewById<Button>(R.id.conf_btn)
+
+        dialogTitle.text = title
+        dialogMessage.text = message
+        dialogButton.text = buttonText
+        dialogButton.setOnClickListener {
+            onClickAction()
+        }
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        dialogButton.setOnClickListener {
+            onClickAction()
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
 }
