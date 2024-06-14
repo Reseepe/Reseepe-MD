@@ -40,18 +40,18 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Show loading indicator
+//        // Show loading indicator
         binding.progressBar.visibility = View.VISIBLE
         binding.profileContainer.visibility = View.GONE
 
-        profileViewModel.profile.observe(viewLifecycleOwner, Observer { profileResponse ->
+        profileViewModel.userProfile.observe(viewLifecycleOwner, Observer { profileResponse ->
             // Hide loading indicator
             binding.progressBar.visibility = View.GONE
             binding.profileContainer.visibility = View.VISIBLE
 
             profileResponse?.let {
-                binding.tvUserName.text = it.user.name
-                binding.tvUserEmail.text = it.user.email
+                binding.tvUserName.text = it.name
+                binding.tvUserEmail.text = it.email
             }
         })
 
@@ -59,6 +59,10 @@ class ProfileFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             showLogoutConfirmationDialog(profileViewModel)
+        }
+
+        binding.btnResetPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_resetPasswordFragment)
         }
 
         binding.ivEditProfile.setOnClickListener {

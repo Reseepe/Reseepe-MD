@@ -44,6 +44,10 @@
             android:id="@+id/action_navigation_profile_to_aboutAppFragment"
             app:destination="@id/aboutAppFragment"
             app:enterAnim="@android:anim/fade_in" />
+        <action
+            android:id="@+id/action_navigation_profile_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
 
     <fragment
@@ -75,4 +79,8 @@
         android:id="@+id/aboutAppFragment"
         android:name="com.capstone.reseepe.ui.profile.AboutAppFragment"
         android:label="AboutAppFragment" />
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.capstone.reseepe.ui.profile.ResetPasswordFragment"
+        android:label="ResetPasswordFragment" />
 </navigation>
