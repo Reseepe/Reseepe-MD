@@ -81,19 +81,51 @@
                 tools:text="Indonesian Fried Rice" />
 
             <TextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:drawableLeft="@drawable/baseline_time_24"
+                android:drawableTint="@color/primary_900"
+                android:text="@string/recipe_duration"
+                android:textSize="12sp"
+                android:textColor="@color/primary_900"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                android:drawablePadding="2dp"/>
+
+            <TextView
+                android:id="@+id/ingredients_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toEndOf="@id/duration"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                android:drawableLeft="@drawable/baseline_grocery_24"
+                android:drawableTint="@color/primary_900"
+                android:textSize="12sp"
+                android:text="@string/recipe_ingredients_qty"
+                android:textColor="@color/primary_900"
+                android:gravity="center_vertical"
+                android:drawablePadding="2dp"/>
+
+            <TextView
                 android:id="@+id/tv_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="22dp"
-                android:textSize="16sp"
-                android:textColor="@color/primary_900"
                 android:justificationMode="inter_word"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
                 android:text="@string/desc_ex"
+                android:textColor="@color/primary_900"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/duration"
                 tools:ignore="UnusedAttribute" />
 
             <TextView

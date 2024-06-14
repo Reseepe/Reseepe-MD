@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.reseepe.R
@@ -28,6 +29,10 @@ class ResultFragment : Fragment() {
 
         _binding = FragmentResultBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         // Set up RecyclerView with FlexboxLayoutManager
         val flexboxLayoutManager = FlexboxLayoutManager(context)
