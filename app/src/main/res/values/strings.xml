@@ -89,5 +89,7 @@
     <string name="get_started_content">Download Reseepe today and embark on a culinary journey filled with delightful flavors and endless possibilities. Join our community of food enthusiasts and experience the joy of cooking like never before!</string>
     <string name="logo_reseepe">logo_reseepe</string>
     <string name="loading">Loading...</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
 
 </resources>

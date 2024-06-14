@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import com.capstone.reseepe.data.api.ApiConfig
 import com.capstone.reseepe.data.api.ApiService
 import com.capstone.reseepe.data.pref.UserPreference
+import com.capstone.reseepe.data.response.EditProfileResponse
 import com.capstone.reseepe.data.response.ProfileResponse
+import com.capstone.reseepe.data.response.ResetPasswordResponse
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -20,6 +22,18 @@ class ProfileRepository private constructor(
         val token = "Bearer ${user.token}"
         Log.d("ProfileRepository", "Token yang request getProfileUser: $token")
         return ApiConfig.getApiService().getProfile(token)
+    }
+
+    suspend fun resetPassword(oldPassword: String, newPassword: String): ResetPasswordResponse {
+        val user = runBlocking { userPreference.getSession().first() }
+        val token = "Bearer ${user.token}"
+        return ApiConfig.getApiService().changePass(token, oldPassword, newPassword)
+    }
+
+    suspend fun editProfile(name: String, email: String, birthday: String) : EditProfileResponse {
+        val user = runBlocking { userPreference.getSession().first() }
+        val token = "Bearer ${user.token}"
+        return ApiConfig.getApiService().editProfile(token, name, email, birthday)
     }
 
     companion object {
