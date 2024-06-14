@@ -21,6 +21,10 @@ class ResultFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    private val ingredientList: MutableList<String> by lazy {
+        mutableListOf("Tomato", "Cheese", "Lettuce", "Onion", "Bread", "Chicken", "Mayonnaise", "Mustard", "Ketchup")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,8 +43,7 @@ class ResultFragment : Fragment() {
         binding.rvIngredient.layoutManager = flexboxLayoutManager
 
         // Example ingredient list
-        val ingredientList = listOf("Tomato", "Cheese", "Lettuce", "Onion", "Bread", "Chicken", "Mayonnaise", "Mustard", "Ketchup")
-        val ingredientAdapter= IngredientAdapter(ingredientList)
+        val ingredientAdapter= IngredientAdapter(ingredientList, enableHoldToDelete = true)
         binding.rvIngredient.adapter = ingredientAdapter
 
         // Set up RecyclerView with GridLayoutManager

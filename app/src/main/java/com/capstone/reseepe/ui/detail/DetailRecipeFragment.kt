@@ -20,6 +20,9 @@ class DetailRecipeFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    private val ingredientListHave: MutableList<String> = mutableListOf()
+    private val ingredientListMiss: MutableList<String> = mutableListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,11 +42,11 @@ class DetailRecipeFragment : Fragment() {
         val recipeName = arguments?.getString("recipeName")
         binding.tvName.text = recipeName
 
-        val ingredientListHave = listOf("Tomato", "Cheese", "Lettuce", "Onion", "Bread", "Chicken", "Mayonnaise", "Mustard", "Ketchup")
-        val ingredientListMiss = listOf("Asparagus", "Rice", "Soy Sauce", "Chili", "MSG", )
+        ingredientListHave.addAll(listOf("Tomato", "Cheese", "Lettuce", "Onion", "Bread", "Chicken", "Mayonnaise", "Mustard", "Ketchup"))
+        ingredientListMiss.addAll(listOf("Asparagus", "Rice", "Soy Sauce", "Chili", "MSG", ))
 
-        val ingredientAdapterHave= IngredientAdapter(ingredientListHave)
-        val ingredientAdapterMiss= IngredientAdapter(ingredientListMiss)
+        val ingredientAdapterHave= IngredientAdapter(ingredientListHave, enableHoldToDelete = false)
+        val ingredientAdapterMiss= IngredientAdapter(ingredientListMiss, enableHoldToDelete = false)
 
         binding.rvIngredientHave.adapter = ingredientAdapterHave
         binding.rvIngredientMiss.adapter = ingredientAdapterMiss
