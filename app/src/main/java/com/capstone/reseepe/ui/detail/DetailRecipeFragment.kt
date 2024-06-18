@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.reseepe.R
-import com.capstone.reseepe.databinding.FragmentBookmarksBinding
+import com.capstone.reseepe.data.response.RecommendedRecipesItem
 import com.capstone.reseepe.databinding.FragmentDetailRecipeBinding
 import com.capstone.reseepe.ui.adapter.IngredientAdapter
 import com.capstone.reseepe.ui.adapter.InstructionAdapter
@@ -17,6 +16,8 @@ import com.google.android.flexbox.FlexboxLayoutManager
 class DetailRecipeFragment : Fragment() {
 
     private var _binding: FragmentDetailRecipeBinding? = null
+
+    private lateinit var recipe: RecommendedRecipesItem
 
     private val binding get() = _binding!!
 
@@ -30,6 +31,9 @@ class DetailRecipeFragment : Fragment() {
         _binding = FragmentDetailRecipeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        recipe = arguments?.getParcelable("recipe") ?: throw IllegalArgumentException("Recipe not found")
+
+
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -39,11 +43,13 @@ class DetailRecipeFragment : Fragment() {
         binding.rvIngredientHave.layoutManager = flexboxLayoutManager1
         binding.rvIngredientMiss.layoutManager = flexboxLayoutManager2
 
-        val recipeName = arguments?.getString("recipeName")
-        binding.tvName.text = recipeName
+        binding.tvName.text = recipe.name
+        binding.duration.text = recipe.duration.toString() + " Min"
+        binding.ingredientsQuantity.text = recipe.ingredients?.size.toString() + " Ingredients"
+        binding.tvDesc.text = recipe.description
 
-        ingredientListHave.addAll(listOf("Tomato", "Cheese", "Lettuce", "Onion", "Bread", "Chicken", "Mayonnaise", "Mustard", "Ketchup"))
-        ingredientListMiss.addAll(listOf("Asparagus", "Rice", "Soy Sauce", "Chili", "MSG", ))
+        recipe.ingredients?.let { ingredientListHave.addAll(it.filterNotNull()) }
+        recipe.missingIngredients?.let { ingredientListMiss.addAll(it.filterNotNull()) }
 
         val ingredientAdapterHave= IngredientAdapter(ingredientListHave, enableHoldToDelete = false)
         val ingredientAdapterMiss= IngredientAdapter(ingredientListMiss, enableHoldToDelete = false)
@@ -51,15 +57,8 @@ class DetailRecipeFragment : Fragment() {
         binding.rvIngredientHave.adapter = ingredientAdapterHave
         binding.rvIngredientMiss.adapter = ingredientAdapterMiss
 
-        val instructionList = listOf(
-            "Clean the ingredients",
-            "Turn on the stove",
-            "COOOOOOOOOOK",
-            "Plate it nicely",
-            "ENJOY MENNN"
-        )
-
-        val instructionAdapter = InstructionAdapter(instructionList)
+        val instructionList = recipe.instructions?.filterNotNull()
+        val instructionAdapter = instructionList?.let { InstructionAdapter(it) }
         binding.rvInstructions.layoutManager = LinearLayoutManager(context)
         binding.rvInstructions.adapter = instructionAdapter
 

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -16,7 +17,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", "\"https://reseepe-api-mainv2-vqlsowwjgq-et.a.run.app/api/\"")
+        buildConfigField("String", "BASE_URL", "\"https://reseepi-api-main-ehx2oeustq-et.a.run.app/api/\"")
     }
 
     buildTypes {
