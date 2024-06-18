@@ -13,6 +13,7 @@ import com.capstone.reseepe.data.response.PostBookmarkResponse
 import com.capstone.reseepe.data.response.ProfileResponse
 import com.capstone.reseepe.data.response.ResetPasswordResponse
 import com.capstone.reseepe.data.response.ScanResultResponse
+import com.capstone.reseepe.data.response.TopFiveRecommendationResponse
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -39,6 +40,13 @@ class RecipeRepository private constructor(
         val user = runBlocking { userPreference.getSession().first() }
         val token = "Bearer ${user.token}"
         val response = ApiConfig.getApiService().bookmarkRecipe(token, idRecipe)
+        return response
+    }
+
+    suspend fun getTopFiveRecommendation() : TopFiveRecommendationResponse {
+        val user = runBlocking { userPreference.getSession().first() }
+        val token = "Bearer ${user.token}"
+        val response = ApiConfig.getApiService().getTopFiveRecommendationRecipes(token)
         return response
     }
 

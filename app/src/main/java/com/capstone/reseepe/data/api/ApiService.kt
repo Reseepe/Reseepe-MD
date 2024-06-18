@@ -7,11 +7,10 @@ import com.capstone.reseepe.data.response.GetBookmarkResponse
 import com.capstone.reseepe.data.response.LoginResponse
 import com.capstone.reseepe.data.response.PostBookmarkResponse
 import com.capstone.reseepe.data.response.ProfileResponse
-import com.capstone.reseepe.data.response.RecommendedRecipesResponse
 import com.capstone.reseepe.data.response.RegisterResponse
 import com.capstone.reseepe.data.response.ResetPasswordResponse
 import com.capstone.reseepe.data.response.ScanResultResponse
-import com.capstone.reseepe.data.response.TopRecommendedResponse
+import com.capstone.reseepe.data.response.TopFiveRecommendationResponse
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -45,9 +44,9 @@ interface ApiService {
     ): ProfileResponse
 
     @GET("recommended")
-    suspend fun getTopRecommendedRecipes(
+    suspend fun getTopFiveRecommendationRecipes(
         @Header("Authorization") token: String
-    ): TopRecommendedResponse
+    ): TopFiveRecommendationResponse
 
     @FormUrlEncoded
     @POST("changespass")

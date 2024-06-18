@@ -13,7 +13,6 @@ import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.FragmentBookmarksBinding
 import com.capstone.reseepe.databinding.FragmentHomeBinding
 import com.capstone.reseepe.ui.adapter.RecipeAdapter
-import com.capstone.reseepe.ui.home.HomeViewModel
 import com.capstone.reseepe.ui.result.ResultViewModel
 import com.capstone.reseepe.util.ViewModelFactory
 

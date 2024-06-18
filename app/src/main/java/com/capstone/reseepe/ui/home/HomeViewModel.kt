@@ -1,37 +1,33 @@
 package com.capstone.reseepe.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.capstone.reseepe.data.api.ApiService
+import androidx.lifecycle.viewModelScope
+import com.capstone.reseepe.data.repository.RecipeRepository
+import com.capstone.reseepe.data.response.RecommendedListItem
+import kotlinx.coroutines.launch
 
-class HomeViewModel(private val apiService: ApiService) : ViewModel() {
-//
-//    private val _recommendedRecipes = MutableLiveData<List<RecipeItem>>()
-//    val recommendedRecipes: LiveData<List<RecipeItem>> = _recommendedRecipes
-//
-//    fun fetchRecommendedRecipes(token: String) {
-//        viewModelScope.launch {
-//            try {
-//                val response = apiService.getRecommendedRecipes(token)
-//                if (!response.error) {
-//                    _recommendedRecipes.value = response.recommendedRecipes.map { item ->
-//                        RecipeItem(
-//                            id = item.id,
-//                            name = item.name,
-//                            duration = item.duration,
-//                            photoUrl = item.photoUrl as String, // Assuming photoUrl is a string
-//                            description = item.description,
-//                            ingredients = item.ingredients,
-//                            instructions = item.instructions
-//                        )
-//                    }
-//                } else {
-//                    // Handle error
-//                }
-//            } catch (e: Exception) {
-//                // Handle exception
-//            }
-//        }
-//    }
+class HomeViewModel(private val recipeRepository: RecipeRepository) : ViewModel() {
+
+    private val _topFiveRecommendations = MutableLiveData<List<RecommendedListItem>>()
+    val topFiveRecommendations: LiveData<List<RecommendedListItem>> = _topFiveRecommendations
+
+    fun fetchTopFiveRecommendations() {
+        viewModelScope.launch {
+            try {
+                val response = recipeRepository.getTopFiveRecommendation()
+                _topFiveRecommendations.value = response.recommendedList
+            } catch (e: Exception) {
+                // Handle error
+                Log.e(TAG, "Error fetching top five recommendations: ${e.message}")
+            }
+        }
+    }
+
+    companion object {
+        private const val TAG = "HomeViewModel"
+    }
 }
+

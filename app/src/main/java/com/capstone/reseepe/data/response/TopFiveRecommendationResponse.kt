@@ -1,26 +1,33 @@
 package com.capstone.reseepe.data.response
 
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class TopRecommendedResponse(
+@Parcelize
+data class TopFiveRecommendationResponse(
 
-	@field:SerializedName("recommendedRecipes")
-	val recommendedRecipes: List<TopRecommendedItem>,
+	@field:SerializedName("recommendedList")
+	val recommendedList: List<RecommendedListItem>,
 
 	@field:SerializedName("error")
 	val error: Boolean,
 
 	@field:SerializedName("message")
 	val message: String
-)
+) : Parcelable
 
-data class TopRecommendedItem(
+@Parcelize
+data class RecommendedListItem(
 
 	@field:SerializedName("duration")
 	val duration: Int,
 
+	@field:SerializedName("isBookmarked")
+	val isBookmarked: Boolean,
+
 	@field:SerializedName("photoUrl")
-	val photoUrl: Any,
+	val photoUrl: String?,
 
 	@field:SerializedName("instructions")
 	val instructions: List<String>,
@@ -36,4 +43,4 @@ data class TopRecommendedItem(
 
 	@field:SerializedName("id")
 	val id: Int
-)
+) : Parcelable

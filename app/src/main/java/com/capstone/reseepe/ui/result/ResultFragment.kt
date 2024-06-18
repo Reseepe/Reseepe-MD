@@ -46,7 +46,7 @@ class ResultFragment : Fragment() {
 
         resultViewModel.ingredientList.observe(viewLifecycleOwner) {
             val ingredientAdapter= IngredientAdapter(it, enableHoldToDelete = true)
-            binding.rvIngredient.adapter = ingredientAdapter
+                binding.rvIngredient.adapter = ingredientAdapter
         }
 
         // Set up RecyclerView with GridLayoutManager
