@@ -75,4 +75,11 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") recipeId: Int
     ): PostBookmarkResponse
+
+    @POST("unbookmark/{id}")
+    suspend fun unbookmarkRecipe(
+        @Header("Authorization") token: String,
+        @Path("id") recipeId: Int
+    ): PostBookmarkResponse
+
 }

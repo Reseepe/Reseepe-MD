@@ -20,18 +20,16 @@ import com.capstone.reseepe.util.ViewModelFactory
 class BookmarksFragment : Fragment() {
 
     private var _binding: FragmentBookmarksBinding? = null
-
     private val binding get() = _binding!!
+    private val bookmarksViewModel by viewModels<BookmarksViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val bookmarksViewModel by viewModels<BookmarksViewModel> {
-            ViewModelFactory.getInstance(requireContext())
-        }
-
         _binding = FragmentBookmarksBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -39,12 +37,12 @@ class BookmarksFragment : Fragment() {
         val layoutManager = GridLayoutManager(requireContext(), 2) // 2 columns
         binding.rvRecipes.layoutManager = layoutManager
 
-        bookmarksViewModel.getBookmarkResponse.observe(viewLifecycleOwner){
+        bookmarksViewModel.getBookmarkResponse.observe(viewLifecycleOwner) {
             val recipeAdapter = it.bookmarkedRecipes?.let { it1 -> RecipeAdapter(it1.filterNotNull()) }
             binding.rvRecipes.adapter = recipeAdapter
         }
 
-        bookmarksViewModel.isEmpty.observe(viewLifecycleOwner){
+        bookmarksViewModel.isEmpty.observe(viewLifecycleOwner) {
             showInfo(it)
         }
 
@@ -54,6 +52,15 @@ class BookmarksFragment : Fragment() {
     private fun showInfo(isEmpty: Boolean) {
         binding.ivNoBookmarks.visibility = if (isEmpty) View.VISIBLE else View.GONE
         binding.tvNoBookmarks.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bookmarksViewModel.getBookmark()
+        bookmarksViewModel.getBookmarkResponse.observe(viewLifecycleOwner) {
+            val recipeAdapter = it.bookmarkedRecipes?.let { it1 -> RecipeAdapter(it1.filterNotNull()) }
+            binding.rvRecipes.adapter = recipeAdapter
+        }
     }
 
     override fun onDestroyView() {

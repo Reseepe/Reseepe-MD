@@ -25,7 +25,17 @@
         android:id="@+id/navigation_bookmarks"
         android:name="com.capstone.reseepe.ui.bookmarks.BookmarksFragment"
         android:label="@string/title_bookmarks"
-        tools:layout="@layout/fragment_bookmarks" />
+        tools:layout="@layout/fragment_bookmarks" >
+        <action
+            android:id="@+id/action_bookmarksFragment_to_detailDefaultFragment"
+            app:destination="@id/navigation_detail_default" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_detail_default"
+        android:name="com.capstone.reseepe.ui.detail.DetailDefaultFragment"
+        tools:layout="@layout/fragment_detail_default">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -54,7 +64,11 @@
         android:id="@+id/resultFragment"
         android:name="com.capstone.reseepe.ui.result.ResultFragment"
         android:label="Result Fragment"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result">
+        <action
+            android:id="@+id/action_resultFragment_to_detailRecipeFragment"
+            app:destination="@id/detailRecipeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/detailRecipeFragment"
@@ -63,9 +77,7 @@
         tools:layout="@layout/fragment_detail_recipe">
     </fragment>
 
-    <action
-        android:id="@+id/action_resultFragment_to_detailRecipeFragment"
-        app:destination="@id/detailRecipeFragment" />
+
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.capstone.reseepe.ui.profile.EditProfileFragment"
