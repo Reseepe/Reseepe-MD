@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.FragmentBookmarksBinding
 import com.capstone.reseepe.databinding.FragmentHomeBinding
 import com.capstone.reseepe.ui.adapter.RecipeAdapter
 import com.capstone.reseepe.ui.home.HomeViewModel
+import com.capstone.reseepe.ui.result.ResultViewModel
+import com.capstone.reseepe.util.ViewModelFactory
 
 class BookmarksFragment : Fragment() {
 
@@ -25,8 +28,9 @@ class BookmarksFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val bookmarksViewModel =
-            ViewModelProvider(this).get(BookmarksViewModel::class.java)
+        val bookmarksViewModel by viewModels<BookmarksViewModel> {
+            ViewModelFactory.getInstance(requireContext())
+        }
 
         _binding = FragmentBookmarksBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -35,12 +39,21 @@ class BookmarksFragment : Fragment() {
         val layoutManager = GridLayoutManager(requireContext(), 2) // 2 columns
         binding.rvRecipes.layoutManager = layoutManager
 
-        // Populate RecyclerView with dummy data (replace with actual data)
-        val dummyRecipeNames = listOf("Indonesian Fried Rice", "Chinese Fried Rice", "Kwetiauw", "Somay Mas Didit", "Mie Ayam Teguh") // Dummy recipe names
-        val recipeAdapter = RecipeAdapter(dummyRecipeNames)
-        binding.rvRecipes.adapter = recipeAdapter
+        bookmarksViewModel.getBookmarkResponse.observe(viewLifecycleOwner){
+            val recipeAdapter = it.bookmarkedRecipes?.let { it1 -> RecipeAdapter(it1.filterNotNull()) }
+            binding.rvRecipes.adapter = recipeAdapter
+        }
+
+        bookmarksViewModel.isEmpty.observe(viewLifecycleOwner){
+            showInfo(it)
+        }
 
         return root
+    }
+
+    private fun showInfo(isEmpty: Boolean) {
+        binding.ivNoBookmarks.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        binding.tvNoBookmarks.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {

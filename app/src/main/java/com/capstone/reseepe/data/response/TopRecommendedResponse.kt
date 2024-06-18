@@ -2,10 +2,10 @@ package com.capstone.reseepe.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class RecommendedRecipesResponse(
+data class TopRecommendedResponse(
 
 	@field:SerializedName("recommendedRecipes")
-	val recommendedRecipes: List<RecommendedRecipesItem>,
+	val recommendedRecipes: List<TopRecommendedItem>,
 
 	@field:SerializedName("error")
 	val error: Boolean,
@@ -14,7 +14,7 @@ data class RecommendedRecipesResponse(
 	val message: String
 )
 
-data class RecommendedRecipesItem(
+data class TopRecommendedItem(
 
 	@field:SerializedName("duration")
 	val duration: Int,

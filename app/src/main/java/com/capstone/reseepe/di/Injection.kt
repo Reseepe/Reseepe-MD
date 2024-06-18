@@ -6,6 +6,7 @@ import com.capstone.reseepe.data.repository.UserRepository
 import com.capstone.reseepe.data.pref.UserPreference
 import com.capstone.reseepe.data.pref.dataStore
 import com.capstone.reseepe.data.repository.ProfileRepository
+import com.capstone.reseepe.data.repository.RecipeRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -19,5 +20,11 @@ object Injection {
         val pref = UserPreference.getInstance(context.dataStore)
         val apiService = ApiConfig.getApiService()
         return ProfileRepository.getInstance(apiService, pref)
+    }
+
+    fun provideRecipeRepository(context: Context): RecipeRepository{
+        val pref = UserPreference.getInstance(context.dataStore)
+        val apiService = ApiConfig.getApiService()
+        return RecipeRepository.getInstance(apiService, pref)
     }
 }

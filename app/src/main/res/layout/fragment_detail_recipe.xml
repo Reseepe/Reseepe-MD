@@ -66,26 +66,12 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="22dp"
-                android:textSize="26dp"
-                android:textStyle="bold"
-                android:textColor="@color/primary_900"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_recipe_photo"
-                tools:text="Indonesian Fried Rice" />
-
-            <TextView
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="22dp"
+                android:layout_marginTop="18dp"
                 android:drawableLeft="@drawable/baseline_time_24"
                 android:drawableTint="@color/primary_900"
                 android:text="@string/recipe_duration"
@@ -93,7 +79,7 @@
                 android:textColor="@color/primary_900"
                 android:gravity="center_vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/iv_recipe_photo"
                 android:drawablePadding="2dp"/>
 
             <TextView
@@ -101,8 +87,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="18dp"
                 app:layout_constraintStart_toEndOf="@id/duration"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/iv_recipe_photo"
                 android:drawableLeft="@drawable/baseline_grocery_24"
                 android:drawableTint="@color/primary_900"
                 android:textSize="12sp"
@@ -110,6 +97,21 @@
                 android:textColor="@color/primary_900"
                 android:gravity="center_vertical"
                 android:drawablePadding="2dp"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="22dp"
+                android:textSize="26dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/duration"
+                tools:text="Indonesian Fried Rice" />
 
             <TextView
                 android:id="@+id/tv_desc"
@@ -125,7 +127,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/duration"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
                 tools:ignore="UnusedAttribute" />
 
             <TextView
@@ -206,5 +208,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/baseline_bookmark_border_24"
+        android:tint="@color/primary_400"
+        android:backgroundTint="@color/white"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="70dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
