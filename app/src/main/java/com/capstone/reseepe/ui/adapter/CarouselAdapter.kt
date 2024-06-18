@@ -41,7 +41,7 @@ class CarouselAdapter(
             val bundle = Bundle().apply{
                 putParcelable("recipe", recommendedItem)
             }
-            it.findNavController().navigate(R.id.action_navigation_home_to_detailRecipeFragment)
+            it.findNavController().navigate(R.id.action_navigation_home_to_navigation_detail_default, bundle)
         }
     }
 
