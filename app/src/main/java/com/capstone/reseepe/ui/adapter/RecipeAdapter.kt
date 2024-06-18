@@ -30,7 +30,10 @@ class RecipeAdapter<T>(private val recipes: List<T>) :
                     is BookmarkedRecipesItem -> putParcelable("recipe", recipe)
                 }
             }
-            it.findNavController().navigate(R.id.action_resultFragment_to_detailRecipeFragment, bundle)
+            when (recipe) {
+                is RecommendedRecipesItem -> it.findNavController().navigate(R.id.action_resultFragment_to_detailRecipeFragment, bundle)
+                is BookmarkedRecipesItem -> it.findNavController().navigate(R.id.action_bookmarksFragment_to_detailDefaultFragment, bundle)
+            }
         }
     }
 

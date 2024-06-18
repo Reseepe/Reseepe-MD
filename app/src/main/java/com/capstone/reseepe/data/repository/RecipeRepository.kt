@@ -50,6 +50,13 @@ class RecipeRepository private constructor(
         return response
     }
 
+    suspend fun postUnbookmark(idRecipe: Int): PostBookmarkResponse{
+        val user = runBlocking { userPreference.getSession().first() }
+        val token = "Bearer ${user.token}"
+        val response = ApiConfig.getApiService().unbookmarkRecipe(token, idRecipe)
+        return response
+    }
+
     companion object {
         private const val TAG = "RecipeRepository"
 

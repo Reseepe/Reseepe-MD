@@ -15,7 +15,6 @@ data class GetBookmarkResponse(
 	@field:SerializedName("message")
 	val message: String? = null
 )
-
 @Parcelize
 data class BookmarkedRecipesItem(
 
@@ -33,9 +32,6 @@ data class BookmarkedRecipesItem(
 
 	@field:SerializedName("name")
 	val name: String? = null,
-
-	@field:SerializedName("missingIngredients")
-	val missingIngredients: List<String?>? = null,
 
 	@field:SerializedName("description")
 	val description: String? = null,

@@ -9,6 +9,7 @@ import com.capstone.reseepe.data.repository.UserRepository
 import com.capstone.reseepe.di.Injection
 import com.capstone.reseepe.ui.bookmarks.BookmarksViewModel
 import com.capstone.reseepe.ui.home.HomeViewModel
+import com.capstone.reseepe.ui.detail.DetailViewModel
 import com.capstone.reseepe.ui.login.LoginViewModel
 import com.capstone.reseepe.ui.main.MainViewModel
 import com.capstone.reseepe.ui.profile.ProfileViewModel
@@ -44,6 +45,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(recipeRepository) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(userRepository, recipeRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

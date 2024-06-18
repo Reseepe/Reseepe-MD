@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.reseepe.R
+import com.capstone.reseepe.data.response.BookmarkedRecipesItem
 import com.capstone.reseepe.data.response.RecommendedRecipesItem
+import com.capstone.reseepe.databinding.FragmentDetailDefaultBinding
 import com.capstone.reseepe.databinding.FragmentDetailRecipeBinding
 import com.capstone.reseepe.ui.adapter.IngredientAdapter
 import com.capstone.reseepe.ui.adapter.InstructionAdapter
@@ -17,22 +19,21 @@ import com.capstone.reseepe.ui.result.ResultViewModel
 import com.capstone.reseepe.util.ViewModelFactory
 import com.google.android.flexbox.FlexboxLayoutManager
 
-class DetailRecipeFragment : Fragment() {
+class DetailDefaultFragment : Fragment() {
 
-    private var _binding: FragmentDetailRecipeBinding? = null
+    private var _binding: FragmentDetailDefaultBinding? = null
 
-    private lateinit var recipe: RecommendedRecipesItem
+    private lateinit var recipe: BookmarkedRecipesItem
 
     private val binding get() = _binding!!
 
-    private val ingredientListHave: MutableList<String> = mutableListOf()
-    private val ingredientListMiss: MutableList<String> = mutableListOf()
+    private val ingredientList: MutableList<String> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDetailRecipeBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailDefaultBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val detailViewModel by viewModels<DetailViewModel> {
@@ -41,6 +42,7 @@ class DetailRecipeFragment : Fragment() {
 
         recipe = arguments?.getParcelable("recipe") ?: throw IllegalArgumentException("Recipe not found")
 
+        recipe.isBookmarked?.let { setupFab(it) }
 
         binding.floatingActionButton.setOnClickListener{
             if (recipe.isBookmarked == false){
@@ -50,30 +52,24 @@ class DetailRecipeFragment : Fragment() {
             }
         }
 
-        recipe.isBookmarked?.let { setupFab(it) }
-
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
 
         val flexboxLayoutManager1 = FlexboxLayoutManager(context)
-        val flexboxLayoutManager2 = FlexboxLayoutManager(context)
-        binding.rvIngredientHave.layoutManager = flexboxLayoutManager1
-        binding.rvIngredientMiss.layoutManager = flexboxLayoutManager2
+        binding.rvIngredient.layoutManager = flexboxLayoutManager1
 
         binding.tvName.text = recipe.name
         binding.duration.text = recipe.duration.toString() + " Min"
         binding.ingredientsQuantity.text = recipe.ingredients?.size.toString() + " Ingredients"
         binding.tvDesc.text = recipe.description
 
-        recipe.ingredients?.let { ingredientListHave.addAll(it.filterNotNull()) }
-        recipe.missingIngredients?.let { ingredientListMiss.addAll(it.filterNotNull()) }
+        recipe.ingredients?.let { ingredientList.addAll(it.filterNotNull()) }
 
-        val ingredientAdapterHave= IngredientAdapter(ingredientListHave, enableHoldToDelete = false)
-        val ingredientAdapterMiss= IngredientAdapter(ingredientListMiss, enableHoldToDelete = false)
 
-        binding.rvIngredientHave.adapter = ingredientAdapterHave
-        binding.rvIngredientMiss.adapter = ingredientAdapterMiss
+        val ingredientAdapterHave= IngredientAdapter(ingredientList, enableHoldToDelete = false)
+
+        binding.rvIngredient.adapter = ingredientAdapterHave
 
         val instructionList = recipe.instructions?.filterNotNull()
         val instructionAdapter = instructionList?.let { InstructionAdapter(it) }
