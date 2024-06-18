@@ -6,11 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.reseepe.R
+import com.capstone.reseepe.data.model.RecipeItem
 
-class CarouselAdapter(private val imageList: List<Int>) : RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder>() {
+class CarouselAdapter(
+    private val recipeItems: List<RecipeItem>,
+    private val onItemClick: (RecipeItem) -> Unit
+) : RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder>() {
 
     class CarouselViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageView: ImageView = view.findViewById(R.id.imageView)
+        val imageView: ImageView = view.findViewById(R.id.iv_recipe_img)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarouselViewHolder {
@@ -19,10 +23,14 @@ class CarouselAdapter(private val imageList: List<Int>) : RecyclerView.Adapter<C
     }
 
     override fun onBindViewHolder(holder: CarouselViewHolder, position: Int) {
-        holder.imageView.setImageResource(imageList[position])
+        val recipeItem = recipeItems[position]
+        holder.imageView.setImageResource(recipeItem.imageRes)
+        holder.imageView.setOnClickListener {
+            onItemClick(recipeItem)
+        }
     }
 
     override fun getItemCount(): Int {
-        return imageList.size
+        return recipeItems.size
     }
 }

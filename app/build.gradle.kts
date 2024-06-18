@@ -16,7 +16,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", "\"https://reseepe-api-mainv2-vqlsowwjgq-et.a.run.app/api/\"")
+        buildConfigField("String", "BASE_URL", "\"https://reseepi-api-main-ehx2oeustq-et.a.run.app/api/\"")
     }
 
     buildTypes {
@@ -75,5 +75,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+
+    // Glide for image loading
+    implementation("com.github.bumptech.glide:glide:4.13.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
 
 }

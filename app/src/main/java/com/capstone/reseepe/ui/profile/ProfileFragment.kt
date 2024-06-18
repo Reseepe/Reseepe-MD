@@ -41,13 +41,13 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
 
 //        // Show loading indicator
-        binding.progressBar.visibility = View.VISIBLE
-        binding.profileContainer.visibility = View.GONE
+//        binding.progressBar.visibility = View.VISIBLE
+//        binding.profileContainer.visibility = View.GONE
 
         profileViewModel.userProfile.observe(viewLifecycleOwner, Observer { profileResponse ->
-            // Hide loading indicator
-            binding.progressBar.visibility = View.GONE
-            binding.profileContainer.visibility = View.VISIBLE
+//            // Hide loading indicator
+//            binding.progressBar.visibility = View.GONE
+//            binding.profileContainer.visibility = View.VISIBLE
 
             profileResponse?.let {
                 binding.tvUserName.text = it.name

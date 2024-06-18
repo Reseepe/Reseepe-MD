@@ -26,14 +26,14 @@ class RecentlyViewedAdapter(private val items: List<RecipeItem>, private val onI
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-        holder.recipeImageView.setImageResource(item.imageRes)
-        holder.titleTextView.text = item.title
-        holder.durationTextView.text = item.duration
-        holder.ingredientsTextView.text = item.ingredientsQuantity
-        holder.forwardIcon.setOnClickListener {
-            onItemClick(item)
-        }
+//        val item = items[position]
+//        holder.recipeImageView.setImageResource(item.imageRes)
+//        holder.titleTextView.text = item.name
+//        holder.durationTextView.text = item.duration
+//        holder.ingredientsTextView.text = item.ingredientsQuantity
+//        holder.forwardIcon.setOnClickListener {
+//            onItemClick(item)
+//        }
     }
 
     override fun getItemCount(): Int = items.size

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.capstone.reseepe.R
@@ -43,14 +44,14 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        ////      Show loading indicator
-        binding.progressBar.visibility = View.VISIBLE
-        binding.homeContainer.visibility = View.GONE
+//        ////      Show loading indicator
+//        binding.progressBar.visibility = View.VISIBLE
+//        binding.homeContainer.visibility = View.GONE
 
         profileViewModel.userProfile.observe(viewLifecycleOwner, Observer { profileResponse ->
-            // Hide loading indicator
-            binding.progressBar.visibility = View.GONE
-            binding.homeContainer.visibility = View.VISIBLE
+//            // Hide loading indicator
+//            binding.progressBar.visibility = View.GONE
+//            binding.homeContainer.visibility = View.VISIBLE
 
             profileResponse?.let {
                 val name = it.name
@@ -62,18 +63,23 @@ class HomeFragment : Fragment() {
 
         // Inisialisasi ViewPager2 dan Adapter
         val viewPager: ViewPager2 = binding.viewPager
-        val images = listOf(
-            R.drawable.default_val_rcp,
-            R.drawable.default_val_rcp,
-            R.drawable.default_val_rcp,
+        val recipeItems = listOf(
+            RecipeItem(R.drawable.default_val_rcp, "Recipe 1", "30 mins", "10 ingredients"),
+            RecipeItem(R.drawable.default_val_rcp, "Recipe 2", "45 mins", "8 ingredients"),
+            RecipeItem(R.drawable.default_val_rcp, "Recipe 3", "20 mins", "5 ingredients")
         )
-        val adapter = CarouselAdapter(images)
+        val adapter = CarouselAdapter(recipeItems) { recipeItem ->
+            val bundle = Bundle().apply {
+                putString("recipeName", recipeItem.title)
+            }
+            findNavController().navigate(R.id.action_navigation_home_to_detailRecipeFragment, bundle)
+        }
         viewPager.adapter = adapter
 
         // Slide otomatis
         handler = Handler()
         runnable = Runnable {
-            viewPager.currentItem = viewPager.currentItem + 1
+            viewPager.currentItem = (viewPager.currentItem + 1) % recipeItems.size
         }
         startAutoScroll()
 
@@ -91,17 +97,18 @@ class HomeFragment : Fragment() {
 
         // Inisialisasi RecyclerView dan Adapter untuk Recently Viewed
         val rvRecently = binding.rvRecently
-        val recipeItems = listOf(
+        val recipeItemsRecently = listOf(
             RecipeItem(R.drawable.default_val_rcp, "Recipe 1", "30 mins", "10 ingredients"),
             RecipeItem(R.drawable.default_val_rcp, "Recipe 2", "45 mins", "8 ingredients"),
             RecipeItem(R.drawable.default_val_rcp, "Recipe 3", "20 mins", "5 ingredients"),
             RecipeItem(R.drawable.default_val_rcp, "Recipe 4", "20 mins", "5 ingredients"),
             RecipeItem(R.drawable.default_val_rcp, "Recipe 5", "20 mins", "5 ingredients"),
         )
-        val recentlyViewedAdapter = RecentlyViewedAdapter(recipeItems) { item ->
-            // Handle item click, navigasi ke detail fragment
-            // val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(item)
-            // findNavController().navigate(action)
+        val recentlyViewedAdapter = RecentlyViewedAdapter(recipeItemsRecently) { item ->
+            val bundle = Bundle().apply {
+                putString("recipeName", item.title)
+            }
+            findNavController().navigate(R.id.action_navigation_home_to_detailRecipeFragment, bundle)
         }
         rvRecently.adapter = recentlyViewedAdapter
         rvRecently.layoutManager = LinearLayoutManager(context)
