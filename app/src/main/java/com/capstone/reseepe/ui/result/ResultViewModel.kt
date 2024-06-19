@@ -4,21 +4,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.capstone.reseepe.data.model.IngredientItem
-import com.capstone.reseepe.data.model.ProfileModel
-import com.capstone.reseepe.data.repository.ProfileRepository
 import com.capstone.reseepe.data.repository.RecipeRepository
 import com.capstone.reseepe.data.repository.UserRepository
-import com.capstone.reseepe.data.response.EditProfileResponse
 import com.capstone.reseepe.data.response.PostBookmarkResponse
-import com.capstone.reseepe.data.response.ResetPasswordResponse
 import com.capstone.reseepe.data.response.ScanResultResponse
 import kotlinx.coroutines.launch
 
 class ResultViewModel(
-    private val repository: UserRepository,
+    private val userRepository: UserRepository,
     private val recipeRepository: RecipeRepository
 ) : ViewModel() {
 
@@ -38,9 +33,13 @@ class ResultViewModel(
         val mutableIngredients = mutableListOf("Tomato", "Chicken", "Mayonnaise", "Rice", "Spinach", "Salt")
         _ingredientList.value = mutableIngredients
 
-        val ingredientObjects: List<IngredientItem> = mutableIngredients.map { ingredientName ->
+        updateRecipeList()
+    }
+
+    private fun updateRecipeList() {
+        val ingredientObjects: List<IngredientItem> = _ingredientList.value?.map { ingredientName ->
             IngredientItem(name = ingredientName)
-        }
+        } ?: emptyList()
 
         getRecipe(ingredientObjects)
     }
@@ -60,6 +59,13 @@ class ResultViewModel(
         }
     }
 
+    fun removeIngredient(ingredient: String) {
+        val currentList = _ingredientList.value ?: mutableListOf()
+        currentList.remove(ingredient)
+        _ingredientList.value = currentList
+        updateRecipeList()
+    }
+
     fun postBookmark(idRecipe: Int) {
         viewModelScope.launch {
             try {
@@ -71,6 +77,4 @@ class ResultViewModel(
             }
         }
     }
-
-
 }

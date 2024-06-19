@@ -154,7 +154,7 @@ class DetailDefaultFragment : Fragment() {
     private fun setupRecyclerViews(ingredients: MutableList<String>, instructions: List<String>?) {
         val flexboxLayoutManager1 = FlexboxLayoutManager(context)
         binding.rvIngredient.layoutManager = flexboxLayoutManager1
-        val ingredientAdapter = IngredientAdapter(ingredients, enableHoldToDelete = false)
+        val ingredientAdapter = IngredientAdapter(ingredients) {}
         binding.rvIngredient.adapter = ingredientAdapter
 
         binding.rvInstructions.layoutManager = LinearLayoutManager(context)

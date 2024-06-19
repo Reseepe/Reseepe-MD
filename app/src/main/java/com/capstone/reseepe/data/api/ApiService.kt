@@ -10,6 +10,7 @@ import com.capstone.reseepe.data.response.ProfileResponse
 import com.capstone.reseepe.data.response.RegisterResponse
 import com.capstone.reseepe.data.response.ResetPasswordResponse
 import com.capstone.reseepe.data.response.ScanResultResponse
+import com.capstone.reseepe.data.response.SearchIngredientsResponse
 import com.capstone.reseepe.data.response.TopFiveRecommendationResponse
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -19,6 +20,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -88,4 +90,8 @@ interface ApiService {
         @Path("id") recipeId: Int
     ): PostBookmarkResponse
 
+    @GET("search")
+    suspend fun searchIngredientsByParams(
+        @Query("q") query: String
+    ): SearchIngredientsResponse
 }

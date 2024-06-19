@@ -80,8 +80,8 @@ class DetailRecipeFragment : Fragment() {
         recipe.ingredients?.let { ingredientListHave.addAll(it.filterNotNull()) }
         recipe.missingIngredients?.let { ingredientListMiss.addAll(it.filterNotNull()) }
 
-        val ingredientAdapterHave= IngredientAdapter(ingredientListHave, enableHoldToDelete = false)
-        val ingredientAdapterMiss= IngredientAdapter(ingredientListMiss, enableHoldToDelete = false)
+        val ingredientAdapterHave= IngredientAdapter(ingredientListHave) {}
+        val ingredientAdapterMiss= IngredientAdapter(ingredientListMiss) {}
 
         binding.rvIngredientHave.adapter = ingredientAdapterHave
         binding.rvIngredientMiss.adapter = ingredientAdapterMiss

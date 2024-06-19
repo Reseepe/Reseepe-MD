@@ -8,31 +8,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.FragmentResultBinding
-import com.capstone.reseepe.databinding.FragmentScanBinding
 import com.capstone.reseepe.ui.adapter.IngredientAdapter
 import com.capstone.reseepe.ui.adapter.RecipeAdapter
-import com.capstone.reseepe.ui.profile.ProfileViewModel
 import com.capstone.reseepe.util.ViewModelFactory
 import com.google.android.flexbox.FlexboxLayoutManager
 
 class ResultFragment : Fragment() {
 
     private var _binding: FragmentResultBinding? = null
-
     private val binding get() = _binding!!
 
+    private val resultViewModel by viewModels<ResultViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val resultViewModel by viewModels<ResultViewModel> {
-            ViewModelFactory.getInstance(requireContext())
-        }
-
         _binding = FragmentResultBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -40,28 +34,33 @@ class ResultFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        binding.addButton.setOnClickListener {
+            // Tambahkan logika untuk menambah ingredient
+        }
+
         // Set up RecyclerView with FlexboxLayoutManager
         val flexboxLayoutManager = FlexboxLayoutManager(context)
         binding.rvIngredient.layoutManager = flexboxLayoutManager
 
         resultViewModel.ingredientList.observe(viewLifecycleOwner) {
-            val ingredientAdapter= IngredientAdapter(it, enableHoldToDelete = true)
-                binding.rvIngredient.adapter = ingredientAdapter
+            val ingredientAdapter = IngredientAdapter(it, enableHoldToDelete = true) { ingredient ->
+                resultViewModel.removeIngredient(ingredient) // Panggil fungsi ViewModel untuk menghapus ingredient
+            }
+            binding.rvIngredient.adapter = ingredientAdapter
         }
 
         // Set up RecyclerView with GridLayoutManager
         val layoutManager = GridLayoutManager(requireContext(), 2) // 2 columns
         binding.rvRecipes.layoutManager = layoutManager
 
-       resultViewModel.scanResultResponse.observe(viewLifecycleOwner){
-           val recipeAdapter = RecipeAdapter(it.recommendedRecipes)
-           binding.rvRecipes.adapter = recipeAdapter
-       }
-
-        resultViewModel.isLoading.observe(viewLifecycleOwner){
-            showLoading(it)
+        resultViewModel.scanResultResponse.observe(viewLifecycleOwner) {
+            val recipeAdapter = RecipeAdapter(it.recommendedRecipes)
+            binding.rvRecipes.adapter = recipeAdapter
         }
 
+        resultViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
 
         return root
     }
@@ -73,9 +72,5 @@ class ResultFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-
     }
 }

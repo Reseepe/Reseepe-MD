@@ -10,8 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.reseepe.R
 
-class IngredientAdapter(private val ingredientList: MutableList<String>, private val enableHoldToDelete: Boolean = false) :
-    RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
+class IngredientAdapter(
+    private val ingredientList: MutableList<String>,
+    private val enableHoldToDelete: Boolean = false,
+    private val onDeleteIngredient: (String) -> Unit
+) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -66,10 +69,10 @@ class IngredientAdapter(private val ingredientList: MutableList<String>, private
 
     private fun deleteIngredient(position: Int) {
         if (position in 0 until ingredientList.size) {
-            ingredientList.removeAt(position)
+            val removedIngredient = ingredientList.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, ingredientList.size)
+            onDeleteIngredient(removedIngredient)
         }
     }
-
 }
