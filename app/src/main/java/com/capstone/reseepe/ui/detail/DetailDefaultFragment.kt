@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.capstone.reseepe.R
 import com.capstone.reseepe.data.dao.AppDatabase
 import com.capstone.reseepe.data.dao.RecentlyViewedRecipe
