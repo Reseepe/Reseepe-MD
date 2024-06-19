@@ -36,7 +36,7 @@ class RecentlyViewedAdapter(
             binding.duration.text = "${recipe.duration} mins"
             binding.ingredientsQuantity.text = "${recipe.ingredientsCount} ingredients"
 
-            binding.ivForwardIcon.setOnClickListener {
+            binding.root.setOnClickListener {
                 val bundle = Bundle().apply {
                     putParcelable("recipe", convertToRecipeItem(recipe))
                 }

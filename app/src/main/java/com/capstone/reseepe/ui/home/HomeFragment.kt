@@ -70,7 +70,6 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-        
 
         // Observe top five recommendations
         homeViewModel.topFiveRecommendations.observe(viewLifecycleOwner, Observer { recommendations ->
