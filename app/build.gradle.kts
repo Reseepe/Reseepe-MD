@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -84,5 +85,7 @@ dependencies {
     // Shimmer Effect
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
-
+    // Room Database
+    implementation("androidx.room:room-runtime:2.4.2")
+    kapt("androidx.room:room-compiler:2.4.2")
 }

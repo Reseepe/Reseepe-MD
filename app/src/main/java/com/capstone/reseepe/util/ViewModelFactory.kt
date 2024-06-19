@@ -3,6 +3,7 @@ package com.capstone.reseepe.util
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.capstone.reseepe.data.dao.AppDatabase
 import com.capstone.reseepe.data.repository.ProfileRepository
 import com.capstone.reseepe.data.repository.RecipeRepository
 import com.capstone.reseepe.data.repository.UserRepository
@@ -63,6 +64,7 @@ class ViewModelFactory private constructor(
                     val userRepository = Injection.provideRepository(context)
                     val profileRepository = Injection.provideProfileRepository(context)
                     val recipeRepository = Injection.provideRecipeRepository(context)
+
                     INSTANCE = ViewModelFactory(userRepository, profileRepository, recipeRepository)
                 }
             }

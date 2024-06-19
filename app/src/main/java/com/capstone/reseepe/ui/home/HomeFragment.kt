@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.capstone.reseepe.R
-import com.capstone.reseepe.data.model.RecipeItem
 import com.capstone.reseepe.data.response.RecommendedListItem
 import com.capstone.reseepe.databinding.FragmentHomeBinding
 import com.capstone.reseepe.ui.adapter.CarouselAdapter
@@ -28,60 +27,63 @@ class HomeFragment : Fragment() {
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
 
+    private val homeViewModel by viewModels<HomeViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
+
+    private val profileViewModel by viewModels<ProfileViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
+
+    private lateinit var recentlyViewedAdapter: RecentlyViewedAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel by viewModels<HomeViewModel> {
-            ViewModelFactory.getInstance(requireContext())
-        }
-
-        val profileViewModel by viewModels<ProfileViewModel> {
-            ViewModelFactory.getInstance(requireContext())
-        }
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        setupObservers()
+
+        // Fetch user profile data
         profileViewModel.userProfile.observe(viewLifecycleOwner, Observer { profileResponse ->
             profileResponse?.let {
                 val name = it.name
                 binding.tvTitleMsg.text = "Hello, $name"
             }
         })
-
         profileViewModel.fetchProfile()
 
-        // Setup ViewModel and observe top five recommendations
+        return root
+    }
+
+    private fun setupObservers() {
+        // Observe recently viewed recipes
+        // Mengamati LiveData menggunakan observe
+        homeViewModel.recentlyViewedRecipes?.observe(viewLifecycleOwner, Observer { recipes ->
+            recipes?.let { // Memastikan recipes tidak null
+                val list = it // Mengakses value dari LiveData
+                list?.let { // Memastikan list tidak null
+                    recentlyViewedAdapter.submitList(it.filterNotNull())
+                }
+            }
+        })
+        
+
+        // Observe top five recommendations
         homeViewModel.topFiveRecommendations.observe(viewLifecycleOwner, Observer { recommendations ->
             recommendations?.let { recommendedList ->
                 setupCarousel(recommendedList)
             }
         })
 
+        // Fetch top five recommendations
         homeViewModel.fetchTopFiveRecommendations()
 
-
-        // Inisialisasi RecyclerView dan Adapter untuk Recently Viewed
-        val rvRecently = binding.rvRecently
-        val recipeItemsRecently = listOf(
-            RecipeItem(R.drawable.default_val_rcp, "Recipe 1", "30 mins", "10 ingredients"),
-            RecipeItem(R.drawable.default_val_rcp, "Recipe 2", "45 mins", "8 ingredients"),
-            RecipeItem(R.drawable.default_val_rcp, "Recipe 3", "20 mins", "5 ingredients"),
-            RecipeItem(R.drawable.default_val_rcp, "Recipe 4", "20 mins", "5 ingredients"),
-            RecipeItem(R.drawable.default_val_rcp, "Recipe 5", "20 mins", "5 ingredients"),
-        )
-        val recentlyViewedAdapter = RecentlyViewedAdapter(recipeItemsRecently) { item ->
-            val bundle = Bundle().apply {
-                putString("recipeName", item.title)
-            }
-            findNavController().navigate(R.id.action_navigation_home_to_detailRecipeFragment, bundle)
-        }
-        rvRecently.adapter = recentlyViewedAdapter
-        rvRecently.layoutManager = LinearLayoutManager(context)
-
-        return root
+        // Setup RecyclerView for recently viewed recipes
+        setupRecentlyViewedRecyclerView()
     }
 
     private fun setupCarousel(recommendedList: List<RecommendedListItem>) {
@@ -110,6 +112,18 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun setupRecentlyViewedRecyclerView() {
+        val rvRecently = binding.rvRecently
+        recentlyViewedAdapter = RecentlyViewedAdapter { item ->
+            val bundle = Bundle().apply {
+                putString("recipeName", item.name)
+            }
+            findNavController().navigate(R.id.action_navigation_home_to_detailRecipeFragment, bundle)
+        }
+        rvRecently.adapter = recentlyViewedAdapter
+        rvRecently.layoutManager = LinearLayoutManager(context)
     }
 
     private fun startAutoScroll() {

@@ -36,7 +36,7 @@ data class RecommendedListItem(
 	val name: String,
 
 	@field:SerializedName("description")
-	val description: String,
+	val description: String?,
 
 	@field:SerializedName("ingredients")
 	val ingredients: List<String>,

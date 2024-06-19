@@ -1,8 +1,11 @@
 package com.capstone.reseepe.data.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.capstone.reseepe.data.api.ApiConfig
 import com.capstone.reseepe.data.api.ApiService
+import com.capstone.reseepe.data.dao.RecentlyViewedRecipe
+import com.capstone.reseepe.data.dao.RecentlyViewedRecipeDao
 import com.capstone.reseepe.data.model.IngredientItem
 import com.capstone.reseepe.data.model.ProfileModel
 import com.capstone.reseepe.data.model.RecipeRequest
@@ -14,13 +17,37 @@ import com.capstone.reseepe.data.response.ProfileResponse
 import com.capstone.reseepe.data.response.ResetPasswordResponse
 import com.capstone.reseepe.data.response.ScanResultResponse
 import com.capstone.reseepe.data.response.TopFiveRecommendationResponse
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class RecipeRepository private constructor(
     private val apiService: ApiService,
-    private val userPreference: UserPreference
+    private val userPreference: UserPreference,
+    private val recentlyViewedRecipeDao: RecentlyViewedRecipeDao
 ) {
+
+    // Fungsi untuk mendapatkan data Recently Viewed Recipes dari Room Database
+    fun getRecentlyViewedRecipes(): LiveData<List<RecentlyViewedRecipe?>?>? {
+        return recentlyViewedRecipeDao.getRecentlyViewedRecipes
+    }
+
+    // Fungsi untuk menyimpan resep yang baru dilihat ke dalam Room Database
+    fun insertRecentlyViewedRecipe(recipe: RecentlyViewedRecipe) {
+        CoroutineScope(Dispatchers.IO).launch {
+            recentlyViewedRecipeDao.insertRecipe(recipe)
+        }
+    }
+
+    // Fungsi untuk menghapus resep lama yang tidak termasuk dalam lima terakhir dilihat
+    fun deleteOldRecentlyViewedRecipes() {
+        CoroutineScope(Dispatchers.IO).launch {
+            recentlyViewedRecipeDao.deleteOldRecipes()
+        }
+    }
+
 
     suspend fun getRecipe(ingredientList: List<IngredientItem>): ScanResultResponse {
         val user = runBlocking { userPreference.getSession().first() }
@@ -64,9 +91,10 @@ class RecipeRepository private constructor(
         private var instance: RecipeRepository? = null
         fun getInstance(
             apiService: ApiService,
-            userPreference: UserPreference
+            userPreference: UserPreference,
+            recentlyViewedRecipeDao: RecentlyViewedRecipeDao
         ) : RecipeRepository = instance ?: synchronized(this) {
-            instance ?: RecipeRepository(apiService, userPreference)
+            instance ?: RecipeRepository(apiService, userPreference, recentlyViewedRecipeDao)
         }.also { instance = it }
     }
 }

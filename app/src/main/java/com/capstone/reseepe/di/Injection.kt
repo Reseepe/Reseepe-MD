@@ -2,6 +2,7 @@ package com.capstone.reseepe.di
 
 import android.content.Context
 import com.capstone.reseepe.data.api.ApiConfig
+import com.capstone.reseepe.data.dao.AppDatabase
 import com.capstone.reseepe.data.repository.UserRepository
 import com.capstone.reseepe.data.pref.UserPreference
 import com.capstone.reseepe.data.pref.dataStore
@@ -22,9 +23,14 @@ object Injection {
         return ProfileRepository.getInstance(apiService, pref)
     }
 
-    fun provideRecipeRepository(context: Context): RecipeRepository{
+    fun provideRecipeRepository(context: Context): RecipeRepository {
         val pref = UserPreference.getInstance(context.dataStore)
         val apiService = ApiConfig.getApiService()
-        return RecipeRepository.getInstance(apiService, pref)
+
+        // Ambil DAO untuk RecentlyViewedRecipe dari AppDatabase
+        val db = AppDatabase.getDatabase(context)
+        val recentlyViewedRecipeDao = db.recentlyViewedRecipeDao()
+
+        return RecipeRepository.getInstance(apiService, pref, recentlyViewedRecipeDao)
     }
 }
