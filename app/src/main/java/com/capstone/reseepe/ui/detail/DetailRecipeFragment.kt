@@ -54,10 +54,14 @@ class DetailRecipeFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener{
             if (recipe.isBookmarked == false){
                 recipe.id?.let { it1 -> detailViewModel.postBookmark(it1) }
+                val updatedRecipe = recipe.copy(isBookmarked = true)
                 setupFab(true)
+                saveRecentlyViewedRecipe(updatedRecipe)
             } else {
                 recipe.id?.let { it1 -> detailViewModel.postUnbookmark(it1)}
+                val updatedRecipe = recipe.copy(isBookmarked = false)
                 setupFab(false)
+                saveRecentlyViewedRecipe(updatedRecipe)
             }
         }
 
@@ -90,8 +94,6 @@ class DetailRecipeFragment : Fragment() {
         val instructionAdapter = instructionList?.let { InstructionAdapter(it) }
         binding.rvInstructions.layoutManager = LinearLayoutManager(context)
         binding.rvInstructions.adapter = instructionAdapter
-
-        saveRecentlyViewedRecipe(recipe)
 
         return root
     }

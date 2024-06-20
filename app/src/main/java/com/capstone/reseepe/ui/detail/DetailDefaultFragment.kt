@@ -57,10 +57,14 @@ class DetailDefaultFragment : Fragment() {
             binding.floatingActionButton.setOnClickListener {
                 if (bookmarkedRecipe.isBookmarked == false) {
                     bookmarkedRecipe.id?.let { id -> detailViewModel.postBookmark(id) }
+                    val updatedRecipe = bookmarkedRecipe.copy(isBookmarked = true)
                     setupFab(true)
+                    saveRecentlyViewedRecipe(updatedRecipe)
                 } else {
                     bookmarkedRecipe.id?.let { id -> detailViewModel.postUnbookmark(id) }
+                    val updatedRecipe = bookmarkedRecipe.copy(isBookmarked = false)
                     setupFab(false)
+                    saveRecentlyViewedRecipe(updatedRecipe)
                 }
             }
 
@@ -83,10 +87,14 @@ class DetailDefaultFragment : Fragment() {
             binding.floatingActionButton.setOnClickListener {
                 if (recommendedRecipe.isBookmarked == false) {
                     recommendedRecipe.id?.let { id -> detailViewModel.postBookmark(id) }
+                    val updatedRecipe = recommendedRecipe.copy(isBookmarked = true)
                     setupFab(true)
+                    saveRecentlyViewedRecipe(updatedRecipe)
                 } else {
                     recommendedRecipe.id?.let { id -> detailViewModel.postUnbookmark(id) }
+                    val updatedRecipe = recommendedRecipe.copy(isBookmarked = false)
                     setupFab(false)
+                    saveRecentlyViewedRecipe(updatedRecipe)
                 }
             }
 
