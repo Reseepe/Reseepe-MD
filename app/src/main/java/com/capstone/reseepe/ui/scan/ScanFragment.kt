@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -40,6 +41,9 @@ class ScanFragment : Fragment() {
     ) {
         ViewModelFactory.getInstance(requireContext())
     }
+
+    private var loadingDialog: AlertDialog? = null
+
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -75,6 +79,10 @@ class ScanFragment : Fragment() {
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.cameraButton.setOnClickListener { startCameraX() }
         binding.buttonUpload.setOnClickListener { uploadImage() }
+
+        resultViewModel.isScanning.observe(viewLifecycleOwner){
+            showLoading(it)
+        }
 
         return root
     }
@@ -152,6 +160,24 @@ class ScanFragment : Fragment() {
                 onClick()
             }
             .show()
+    }
+
+    private fun showLoading(isLoading: Boolean, message: String = "Scanning your photo for fresh ingredients... Preparing your personalized recipe.") {
+        if (isLoading) {
+            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_loading, null)
+            val loadingMessageTextView = dialogView.findViewById<TextView>(R.id.tv_loading_message)
+            loadingMessageTextView.text = message
+
+            val dialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .setCancelable(false)
+                .create()
+
+            dialog.show()
+            loadingDialog = dialog
+        } else {
+            loadingDialog?.dismiss()
+        }
     }
 
     override fun onDestroyView() {

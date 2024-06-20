@@ -30,6 +30,8 @@ class SignupActivity : AppCompatActivity() {
     private val signupViewModel by viewModels<SignupViewModel> {
         ViewModelFactory.getInstance(this)
     }
+    private var loadingDialog: AlertDialog? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,8 +131,22 @@ class SignupActivity : AppCompatActivity() {
 
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    private fun showLoading(isLoading: Boolean, message: String = "Whipping up your account! Almost ready to savor the flavor.") {
+        if (isLoading) {
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_loading, null)
+            val loadingMessageTextView = dialogView.findViewById<TextView>(R.id.tv_loading_message)
+            loadingMessageTextView.text = message
+
+            val dialog = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create()
+
+            dialog.show()
+            loadingDialog = dialog
+        } else {
+            loadingDialog?.dismiss()
+        }
     }
 
     private fun showCustomDialog(title: String, message: String, buttonText: String, onClickAction: () -> Unit) {
