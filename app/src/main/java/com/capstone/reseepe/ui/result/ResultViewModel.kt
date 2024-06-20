@@ -9,8 +9,10 @@ import com.capstone.reseepe.data.model.IngredientItem
 import com.capstone.reseepe.data.repository.RecipeRepository
 import com.capstone.reseepe.data.repository.UserRepository
 import com.capstone.reseepe.data.response.PostBookmarkResponse
+import com.capstone.reseepe.data.response.ScanIngredientResponse
 import com.capstone.reseepe.data.response.ScanResultResponse
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 
 class ResultViewModel(
     private val userRepository: UserRepository,
@@ -19,6 +21,9 @@ class ResultViewModel(
 
     private val _ingredientList = MutableLiveData<MutableList<String>>()
     val ingredientList: LiveData<MutableList<String>> = _ingredientList
+
+    private val _scanIngredientResponse = MutableLiveData<ScanIngredientResponse>()
+    val scanIngredientResponse: LiveData<ScanIngredientResponse> = _scanIngredientResponse
 
     private val _scanResultResponse = MutableLiveData<ScanResultResponse>()
     val scanResultResponse: LiveData<ScanResultResponse> = _scanResultResponse
@@ -29,11 +34,23 @@ class ResultViewModel(
     private val _postBookmarkResponse = MutableLiveData<PostBookmarkResponse>()
     val postBookmarkResponse: LiveData<PostBookmarkResponse> = _postBookmarkResponse
 
-    init {
-        val mutableIngredients = mutableListOf("Tomato", "Chicken", "Mayonnaise", "Rice", "Spinach", "Salt")
-        _ingredientList.value = mutableIngredients
-
-        updateRecipeList()
+    fun getIngredients(photo: MultipartBody.Part) {
+        viewModelScope.launch {
+            try {
+                val response = recipeRepository.getIngredients(photo)
+                _scanIngredientResponse.value = response
+                response.ingredientList?.let { ingredientItems ->
+                    val ingredientNames = ingredientItems.mapNotNull { it?.name }
+                    Log.d("ResultViewModel", "Ingredients from API: $ingredientNames")
+                    _ingredientList.value = ingredientNames.toMutableList()
+                    Log.d("ResultViewModel", "Ingredients from var ingredientList: $ingredientList.value")
+                    updateRecipeList()
+                }
+            } catch (e: Exception) {
+                Log.e("ResultViewModel", "Error getting the Ingredients: ${e.message}")
+                _scanIngredientResponse.value = ScanIngredientResponse(error = true, message = e.message)
+            }
+        }
     }
 
     private fun updateRecipeList() {

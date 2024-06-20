@@ -4,34 +4,42 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.capstone.reseepe.R
-import com.capstone.reseepe.databinding.FragmentBookmarksBinding
 import com.capstone.reseepe.databinding.FragmentScanBinding
-import com.capstone.reseepe.ui.bookmarks.BookmarksViewModel
-import com.capstone.reseepe.ui.result.ResultFragment
+import com.capstone.reseepe.ui.result.ResultViewModel
 import com.capstone.reseepe.ui.scan.CameraActivity.Companion.CAMERAX_RESULT
+import com.capstone.reseepe.util.ViewModelFactory
+import com.capstone.reseepe.util.reduceFileImage
+import com.capstone.reseepe.util.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 class ScanFragment : Fragment() {
 
     private var _binding: FragmentScanBinding? = null
-
     private val binding get() = _binding!!
-
     private var currentImageUri: Uri? = null
+
+    private val resultViewModel: ResultViewModel by viewModels(
+        ownerProducer = { requireActivity() }
+    ) {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -57,9 +65,6 @@ class ScanFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val scanViewModel =
-            ViewModelProvider(this).get(ScanViewModel::class.java)
-
         _binding = FragmentScanBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -69,11 +74,7 @@ class ScanFragment : Fragment() {
 
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.cameraButton.setOnClickListener { startCameraX() }
-        binding.buttonUpload.setOnClickListener {
-            findNavController().navigate(R.id.action_scanFragment_to_resultFragment)
-        }
-
-
+        binding.buttonUpload.setOnClickListener { uploadImage() }
 
         return root
     }
@@ -108,10 +109,49 @@ class ScanFragment : Fragment() {
     }
 
     private fun showImage() {
-        currentImageUri?.let {
-            Log.d("Image URI", "showImage: $it")
-            binding.previewImageView.setImageURI(it)
-        }
+        binding.previewImageView.setImageURI(currentImageUri)
+    }
+
+    private fun uploadImage() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+            Log.d("Image File", "showImage: ${imageFile.path}")
+
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "photo",
+                imageFile.name,
+                requestImageFile
+            )
+
+            resultViewModel.getIngredients(multipartBody)
+            resultViewModel.scanIngredientResponse.observe(viewLifecycleOwner) { response ->
+                response?.let {
+                    Log.d("ScanFragment", "Scan response received: $response")
+                    findNavController().navigate(R.id.action_scanFragment_to_resultFragment)
+                }
+            }
+        } ?: showCustomDialog(
+            title = "Oops you forget to attach an image",
+            message = "Please attach an image or take a picture",
+            buttonText = "Try Again"
+        ) {}
+    }
+
+    private fun showCustomDialog(
+        title: String,
+        message: String,
+        buttonText: String,
+        onClick: () -> Unit
+    ) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(buttonText) { dialog, _ ->
+                dialog.dismiss()
+                onClick()
+            }
+            .show()
     }
 
     override fun onDestroyView() {
@@ -122,5 +162,4 @@ class ScanFragment : Fragment() {
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
-
 }
