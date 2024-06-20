@@ -46,7 +46,7 @@
     <string name="instruction_txt">Instructions :</string>
 
     <string name="tv_greeting_msg">What are we going to cook today?</string>
-    <string name="tv_greeting_title">Hello, Fattah!</string>
+    <string name="tv_greeting_title">Hello, ...!</string>
     <string name="recommended_recipes">Recommended Recipes</string>
     <string name="recently_viewed">Recently Viewed</string>
     <string name="hint_carousel">Swipe to see more</string>
