@@ -44,6 +44,21 @@ class ResultViewModel(
         getRecipe(ingredientObjects)
     }
 
+    fun removeIngredient(ingredient: String) {
+        val currentList = _ingredientList.value ?: mutableListOf()
+        currentList.remove(ingredient)
+        _ingredientList.value = currentList
+        updateRecipeList()
+    }
+
+    fun addIngredient(ingredient: String) {
+        val currentList = _ingredientList.value ?: mutableListOf()
+        currentList.add(ingredient)
+        _ingredientList.value = currentList
+        updateRecipeList()
+    }
+
+
     fun getRecipe(ingredientList: List<IngredientItem>) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -57,13 +72,6 @@ class ResultViewModel(
                 _isLoading.value = false
             }
         }
-    }
-
-    fun removeIngredient(ingredient: String) {
-        val currentList = _ingredientList.value ?: mutableListOf()
-        currentList.remove(ingredient)
-        _ingredientList.value = currentList
-        updateRecipeList()
     }
 
     fun postBookmark(idRecipe: Int) {

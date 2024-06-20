@@ -75,6 +75,9 @@
         <action
             android:id="@+id/action_resultFragment_to_detailRecipeFragment"
             app:destination="@id/detailRecipeFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_searchIngredientsFragment"
+            app:destination="@id/searchIngredientsFragment" />
     </fragment>
 
     <fragment
@@ -102,4 +105,8 @@
         android:id="@+id/resetPasswordFragment"
         android:name="com.capstone.reseepe.ui.profile.ResetPasswordFragment"
         android:label="ResetPasswordFragment" />
+    <fragment
+        android:id="@+id/searchIngredientsFragment"
+        android:name="com.capstone.reseepe.ui.result.SearchIngredientsFragment"
+        android:label="SearchIngredientsFragment" />
 </navigation>

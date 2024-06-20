@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.FragmentResultBinding
 import com.capstone.reseepe.ui.adapter.IngredientAdapter
 import com.capstone.reseepe.ui.adapter.RecipeAdapter
@@ -19,10 +20,11 @@ class ResultFragment : Fragment() {
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding!!
 
-    private val resultViewModel by viewModels<ResultViewModel> {
+    private val resultViewModel: ResultViewModel by viewModels(
+        ownerProducer = { requireActivity() }
+    ) {
         ViewModelFactory.getInstance(requireContext())
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +37,7 @@ class ResultFragment : Fragment() {
         }
 
         binding.addButton.setOnClickListener {
-            // Tambahkan logika untuk menambah ingredient
+            findNavController().navigate(R.id.action_resultFragment_to_searchIngredientsFragment)
         }
 
         // Set up RecyclerView with FlexboxLayoutManager

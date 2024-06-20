@@ -15,6 +15,7 @@ import com.capstone.reseepe.ui.login.LoginViewModel
 import com.capstone.reseepe.ui.main.MainViewModel
 import com.capstone.reseepe.ui.profile.ProfileViewModel
 import com.capstone.reseepe.ui.result.ResultViewModel
+import com.capstone.reseepe.ui.result.SearchIngredientsViewModel
 import com.capstone.reseepe.ui.signup.SignupViewModel
 
 class ViewModelFactory private constructor(
@@ -40,6 +41,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(ResultViewModel::class.java) -> {
                 ResultViewModel(userRepository, recipeRepository) as T
+            }
+            modelClass.isAssignableFrom(SearchIngredientsViewModel::class.java) -> {
+                SearchIngredientsViewModel(recipeRepository) as T
             }
             modelClass.isAssignableFrom(BookmarksViewModel::class.java) -> {
                 BookmarksViewModel(userRepository, recipeRepository) as T

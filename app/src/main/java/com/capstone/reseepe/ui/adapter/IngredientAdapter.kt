@@ -75,4 +75,5 @@ class IngredientAdapter(
             onDeleteIngredient(removedIngredient)
         }
     }
+
 }

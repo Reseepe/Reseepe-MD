@@ -15,13 +15,16 @@ import com.capstone.reseepe.data.response.GetBookmarkResponse
 import com.capstone.reseepe.data.response.PostBookmarkResponse
 import com.capstone.reseepe.data.response.ProfileResponse
 import com.capstone.reseepe.data.response.ResetPasswordResponse
+import com.capstone.reseepe.data.response.ScanIngredientResponse
 import com.capstone.reseepe.data.response.ScanResultResponse
+import com.capstone.reseepe.data.response.SearchIngredientsResponse
 import com.capstone.reseepe.data.response.TopFiveRecommendationResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okhttp3.MultipartBody
 
 class RecipeRepository private constructor(
     private val apiService: ApiService,
@@ -48,6 +51,14 @@ class RecipeRepository private constructor(
         }
     }
 
+    suspend fun searchIngredientsByParams(query: String): SearchIngredientsResponse {
+        return apiService.searchIngredientsByParams(query)
+    }
+
+    suspend fun getIngredients(photo: MultipartBody.Part): ScanIngredientResponse {
+        val response = ApiConfig.getApiService().getIngredients(photo)
+        return response
+    }
 
     suspend fun getRecipe(ingredientList: List<IngredientItem>): ScanResultResponse {
         val user = runBlocking { userPreference.getSession().first() }
