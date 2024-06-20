@@ -93,4 +93,6 @@
     <string name="new_password">New Password</string>
     <string name="ingredient_name">Ingredient Name</string>
 
+    <string name="login_loading_message">Spicing things up! Logging you in to unlock culinary delights.</string>
+
 </resources>

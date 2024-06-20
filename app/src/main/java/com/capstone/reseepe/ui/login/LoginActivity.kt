@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityLoginBinding
+    private var loadingDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,8 +91,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    private fun showLoading(isLoading: Boolean, message: String = "Spicing things up! Logging you in to unlock culinary delights.") {
+        if (isLoading) {
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_loading, null)
+            val loadingMessageTextView = dialogView.findViewById<TextView>(R.id.tv_loading_message)
+            loadingMessageTextView.text = message
+
+            val dialog = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create()
+
+            dialog.show()
+            loadingDialog = dialog
+        } else {
+            loadingDialog?.dismiss()
+        }
     }
 
     private fun showCustomDialog(title: String, message: String, buttonText: String, onClickAction: () -> Unit) {

@@ -31,14 +31,19 @@ class ResultViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isScanning = MutableLiveData<Boolean>()
+    val isScanning: LiveData<Boolean> = _isScanning
+
     private val _postBookmarkResponse = MutableLiveData<PostBookmarkResponse>()
     val postBookmarkResponse: LiveData<PostBookmarkResponse> = _postBookmarkResponse
 
     fun getIngredients(photo: MultipartBody.Part) {
         viewModelScope.launch {
+            _isScanning.value = true
             try {
                 val response = recipeRepository.getIngredients(photo)
                 _scanIngredientResponse.value = response
+                _isScanning.value =  false
                 response.ingredientList?.let { ingredientItems ->
                     val ingredientNames = ingredientItems.mapNotNull { it?.name }
                     Log.d("ResultViewModel", "Ingredients from API: $ingredientNames")
@@ -49,6 +54,7 @@ class ResultViewModel(
             } catch (e: Exception) {
                 Log.e("ResultViewModel", "Error getting the Ingredients: ${e.message}")
                 _scanIngredientResponse.value = ScanIngredientResponse(error = true, message = e.message)
+                _isScanning.value = false
             }
         }
     }
