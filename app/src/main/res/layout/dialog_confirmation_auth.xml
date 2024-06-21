@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="32dp"
+    app:cardCornerRadius="11dp"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/dialog_background">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Success"
+            android:textSize="20sp"
+            android:textColor="@color/primary_900"
+            android:gravity="left"/>
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="bla bla bla bla"
+            android:textSize="15sp"
+            android:textColor="@color/primary_900"
+            android:gravity="left"/>
+
+        <Button
+            android:id="@+id/conf_btn"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:textSize="12sp"
+            android:textColor="@color/primary_400"
+            android:backgroundTint="@color/primary_900"
+            android:layout_gravity="end"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

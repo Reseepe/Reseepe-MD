@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.scan.ScanFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_scan_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="22dp"
+            android:textColor="@color/primary_900"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_scan_message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/scan_msg" />
+
+        <TextView
+            android:id="@+id/tv_scan_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="22dp"
+            android:textColor="@color/primary_900"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_scan_example"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_scan_title"
+            android:text="@string/scan_explain_msg" />
+
+        <TextView
+            android:id="@+id/tv_scan_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="22dp"
+            android:textColor="@color/primary_900"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/iv_example_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_scan_message"
+            android:text="@string/scan_example_msg" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_example_photo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="22dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/tv_scan_yours"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_scan_example"
+            app:shapeAppearance="@style/RoundedSquare"
+            app:srcCompat="@drawable/ex_scan" />
+
+        <TextView
+            android:id="@+id/tv_scan_yours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="22dp"
+            android:textColor="@color/primary_900"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/previewImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_example_photo"
+            android:text="@string/scan_your" />
+
+        <ImageView
+            android:id="@+id/previewImageView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_scan_yours"
+            app:layout_constraintBottom_toTopOf="@+id/galleryButton"
+            app:srcCompat="@drawable/baseline_photo_24" />
+
+        <Button
+            android:id="@+id/galleryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="2dp"
+            android:scaleType="fitCenter"
+            android:text="@string/gallery"
+            android:textColor="@color/primary_400"
+            android:backgroundTint="@color/white"
+            app:strokeColor="@color/primary_400"
+            app:strokeWidth="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cameraButton"
+            app:layout_constraintEnd_toStartOf="@+id/cameraButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/previewImageView"
+            app:layout_constraintTop_toTopOf="@+id/cameraButton" />
+
+        <Button
+            android:id="@+id/cameraButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="22dp"
+            android:text="@string/camera"
+            android:backgroundTint="@color/primary_900"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/galleryButton"
+            app:layout_constraintTop_toBottomOf="@id/previewImageView" />
+
+        <Button
+            android:id="@+id/button_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="70dp"
+            android:text="@string/upload"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/galleryButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

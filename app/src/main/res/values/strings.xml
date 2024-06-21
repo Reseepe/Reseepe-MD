@@ -1,16 +1,98 @@
 <resources>
     <string name="app_name">Reseepe</string>
-    <string name="signup">Daftar</string>
-    <string name="login">Masuk</string>
-    <string name="message_welcome_page">Mau belajar Android, iOS, Machine Learning, Cloud, Front-End, Back-End, dan bidang IT lainnya? Di Dicoding aja!</string>
-    <string name="title_welcome_page">Selamat datang di Dicoding!</string>
-    <string name="title_signup_page">Lengkapi data dirimu di bawah ini ya</string>
+    <string name="welcome_msg">Welcome to Reseepe, Your Gateway to Inclusive Culinary Adventures!</string>
+    <string name="signup_msg">Enter your details to register</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="message_login_page">Masukkan dulu datamu ya</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login_msg">Please login to continue</string>
+    <string name="go_sign1">Don\'t have an account?</string>
+    <string name="go_sign2"><u>Sign up</u></string>
     <string name="title_login_page">Sudah siap untuk upgrade skill?</string>
-    <string name="name">Nama</string>
+    <string name="name">Name</string>
+    <string name="birthdate">Birthdate</string>
     <string name="message_main_page">Selamat Belajar di Dicoding.</string>
     <string name="greeting">Halo %1$s,</string>
-    <string name="logout">Keluar</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Register New Account</string>
+    <string name="signup">Register</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_scan">Scan</string>
+    <string name="title_bookmarks">Bookmarks</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="recipe_name">Indonesian Fried Rice</string>
+    <string name="recipe_duration">12 Min</string>
+    <string name="recipe_ingredients_qty">6 Ingredients</string>
+    <string name="scan_msg">Scan Your Ingredients: Find Recipes Instantly!</string>
+    <string name="scan_explain_msg">Discover delicious recipes with the ingredients you have on hand. Simply upload an image of your ingredients to get started!</string>
+    <string name="scan_example_msg">Make sure your photo is clear and well-lit, like the example below!</string>
+    <string name="scan_your">Your ingredient’s snapshot</string>
+
+    <string name="camera">Take a Picture</string>
+    <string name="gallery">Browse My Gallery</string>
+    <string name="upload">Continue</string>
+
+    <string name="result_msg">Result</string>
+    <string name="ingredient_scan_txt">The ingredients that you have..</string>
+
+    <string name="rcp_gen_msg">Recipes based on your ingredients</string>
+    <string name="bookmark_msg">Your Bookmarked Recipes</string>
+
+    <string name="detail_msg">Recipe</string>
+    <string name="desc_ex">Indonesian fried rice, known as Nasi Goreng, is a flavorful stir-fried rice dish. It\'s different from other fried rice variations because it uses a special sweet soy sauce called kecap manis, which gives it a unique sweet and savory taste.  It often includes ingredients like shrimp paste for umami, aromatics like shallots and garlic, and protein like chicken or shrimp. </string>
+    <string name="ingredient_miss_txt">The ingredients you\'re missing</string>
+    <string name="instruction_txt">Instructions :</string>
+
+    <string name="tv_greeting_msg">What are we going to cook today?</string>
+    <string name="tv_greeting_title">Hello, ...!</string>
+    <string name="recommended_recipes">Recommended Recipes</string>
+    <string name="recently_viewed">Recently Viewed</string>
+    <string name="hint_carousel">Swipe to see more</string>
+
+    <string name="profile_image">Profile Image</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="logout">Log out</string>
+    <string name="help_support">Help &amp; Support</string>
+    <string name="about_app">About App</string>
+    <string name="confirmation_logout">Are you sure want to logout?</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes_i_m_sure">Yes, I\'m sure</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_icon">Profile Icon</string>
+    <string name="save">Save</string>
+    <string name="profile">Profile</string>
+
+    <string name="question_faq_1">How do I use the Scan Page feature to get recipe suggestions?</string>
+    <string name="answer_faq_1">Tap the "Scan Page" icon in the bottom navigation bar. You can take a photo of your ingredients with your camera or choose one from your gallery. The app will identify the ingredients and suggest recipes you can make with them. This helps you use what you have and reduce food waste.</string>
+
+    <string name="question_faq_2">How do I add a recipe to my bookmarks?</string>
+    <string name="answer_faq_2">To add a recipe to your bookmarks, tap the bookmark icon on the recipe. If the bookmark icon is filled with color, it means the recipe has been saved. You can view the recipes you have bookmarked in the "Bookmarked Recipes" section from the bottom navigation bar.</string>
+
+    <string name="question_faq_3">How do I get personalized recipe recommendations?</string>
+    <string name="answer_faq_3">To get personalized recipe recommendations, go to the "Home" tab where you will find a section for recommended recipes. These recommendations are based on your previous interactions, bookmarked recipes, and the ingredients you frequently use. This ensures that you always have fresh and relevant recipe suggestions.</string>
+    <string name="faq">FAQ</string>
+    <string name="about_reseepe">Welcome to Reseepe, your ultimate cooking companion app designed to make meal planning and cooking effortless and enjoyable. Whether you\'re a seasoned chef or just starting out in the kitchen, Reseepe is here to inspire you with delicious recipes tailored to your preferences and ingredients.</string>
+    <string name="about_reseepe_title">About Reseepe</string>
+    <string name="key_features_title">Key Features</string>
+    <string name="key_features_content">
+        1. Scan Page: Use the innovative Scan Page feature to take a photo of your ingredients and receive instant recipe suggestions.\n
+        \n2. Bookmark Your Favorites: Easily save your favorite recipes to revisit them later for quick access.\n
+        \n3. Recipe Recommendations: Get personalized recipe recommendations based on your taste preferences and available ingredients.\n
+    </string>
+    <string name="our_mission_title">Our Mission</string>
+    <string name="our_mission_content">At Reseepe, we believe that cooking should be fun, creative, and accessible to everyone. Our mission is to empower home cooks by providing them with the tools and inspiration they need to create delicious meals effortlessly. Whether you\'re planning a weeknight dinner or preparing for a special occasion, Reseepe is your trusted companion in the kitchen.</string>
+    <string name="get_started_title">Get Started</string>
+    <string name="get_started_content">Download Reseepe today and embark on a culinary journey filled with delightful flavors and endless possibilities. Join our community of food enthusiasts and experience the joy of cooking like never before!</string>
+    <string name="logo_reseepe">logo_reseepe</string>
+    <string name="loading">Loading...</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="ingredient_name">Ingredient Name</string>
+
+    <string name="login_loading_message">Spicing things up! Logging you in to unlock culinary delights.</string>
+
 </resources>

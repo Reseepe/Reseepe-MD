@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.DetailRecipeFragment">
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_result_title"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/baseline_arrow_back_24"/>
+
+    <TextView
+        android:id="@+id/tv_result_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="22dp"
+        android:textColor="@color/primary_900"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/detail_msg" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_result_title"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_recipe_photo"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="22dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_val_rcp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/RoundedSquare"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginTop="18dp"
+                android:drawableLeft="@drawable/baseline_time_24"
+                android:drawableTint="@color/primary_900"
+                android:text="@string/recipe_duration"
+                android:textSize="12sp"
+                android:textColor="@color/primary_900"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_recipe_photo"
+                android:drawablePadding="2dp"/>
+
+            <TextView
+                android:id="@+id/ingredients_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="18dp"
+                app:layout_constraintStart_toEndOf="@id/duration"
+                app:layout_constraintTop_toBottomOf="@+id/iv_recipe_photo"
+                android:drawableLeft="@drawable/baseline_grocery_24"
+                android:drawableTint="@color/primary_900"
+                android:textSize="12sp"
+                android:text="@string/recipe_ingredients_qty"
+                android:textColor="@color/primary_900"
+                android:gravity="center_vertical"
+                android:drawablePadding="2dp"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="22dp"
+                android:textSize="26dp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/duration"
+                tools:text="Indonesian Fried Rice" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="22dp"
+                android:justificationMode="inter_word"
+                android:text="@string/desc_ex"
+                android:textColor="@color/primary_900"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/tv_ingredient_have"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text="@string/ingredient_scan_txt"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ingredient_have"
+                android:padding="0dp"
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:layout_marginStart="22dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_have" />
+
+            <TextView
+                android:id="@+id/tv_ingredient_miss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text="@string/ingredient_miss_txt"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_ingredient_have" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ingredient_miss"
+                android:padding="0dp"
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:layout_marginStart="22dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_miss" />
+
+            <TextView
+                android:id="@+id/tv_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text="@string/instruction_txt"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_ingredient_miss" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_instructions"
+                android:padding="0dp"
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:layout_marginStart="22dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_instruction" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/baseline_bookmark_border_24"
+        android:backgroundTint="@color/white"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="20dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

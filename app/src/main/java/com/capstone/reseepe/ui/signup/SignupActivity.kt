@@ -2,19 +2,36 @@ package com.capstone.reseepe.ui.signup
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.capstone.reseepe.R
 import com.capstone.reseepe.databinding.ActivitySignupBinding
+import com.capstone.reseepe.ui.login.LoginActivity
+import com.capstone.reseepe.ui.main.MainActivity
+import com.capstone.reseepe.util.ViewModelFactory
+import java.util.Calendar
 
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
+
+    private val signupViewModel by viewModels<SignupViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+    private var loadingDialog: AlertDialog? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +40,10 @@ class SignupActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
-        playAnimation()
+
+        signupViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
     }
 
     private fun setupView() {
@@ -40,56 +60,119 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.signupButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
 
-            AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
-                setMessage("Akun dengan $email sudah jadi nih. Yuk, login dan belajar coding.")
-                setPositiveButton("Lanjut") { _, _ ->
-                    finish()
-                }
-                create()
-                show()
+        binding.birthdateEditText.setOnClickListener{
+
+            val c = Calendar.getInstance()
+
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+
+                this,
+                { view, year, monthOfYear, dayOfMonth ->
+
+
+                    val dat = (year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth)
+                    binding.birthdateEditText.setText(dat)
+                },
+
+                year,
+                month,
+                day
+            )
+
+            datePickerDialog.show()
+        }
+
+        binding.buttonSignup.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
+            val email = binding.emailEditText.text.toString()
+            val birthday = binding.birthdateEditText.text.toString()
+            val password =  binding.passwordEditText.text.toString()
+            val confPassword = binding.confirmPasswordEditText.text.toString()
+
+            if (password != confPassword) {
+                showCustomDialog(
+                    title = "Oops! Unable to complete registration.",
+                    message = "Please make sure your passwords input is correct",
+                    buttonText = "Try Again"
+                ) {}
+
+            } else {
+                signupViewModel.register(name, email, birthday, password)
             }
+
+            signupViewModel.registerResponse.observe(this) {
+                if (it.error == true) {
+                    showCustomDialog(
+                        title = "Oops! Unable to complete registration.",
+                        message = "Please check your details and try again",
+                        buttonText = "Try Again"
+                    ) {}
+
+                } else {
+                    showCustomDialog(
+                        title = "Great news! You've successfully registered your account",
+                        message = "Login to continue using Reseepe",
+                        buttonText = "Login Now"
+                    ) {
+                        val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    private fun showLoading(isLoading: Boolean, message: String = "Whipping up your account! Almost ready to savor the flavor.") {
+        if (isLoading) {
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_loading, null)
+            val loadingMessageTextView = dialogView.findViewById<TextView>(R.id.tv_loading_message)
+            loadingMessageTextView.text = message
+
+            val dialog = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create()
+
+            dialog.show()
+            loadingDialog = dialog
+        } else {
+            loadingDialog?.dismiss()
         }
     }
 
-    private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
+    private fun showCustomDialog(title: String, message: String, buttonText: String, onClickAction: () -> Unit) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirmation_auth, null)
 
-        val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
-        val nameTextView =
-            ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
-        val nameEditTextLayout =
-            ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val emailTextView =
-            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
-        val emailEditTextLayout =
-            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val passwordTextView =
-            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
-        val passwordEditTextLayout =
-            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val signup = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(100)
+        val dialogTitle = dialogView.findViewById<TextView>(R.id.tv_title)
+        val dialogMessage = dialogView.findViewById<TextView>(R.id.tv_message)
+        val dialogButton = dialogView.findViewById<Button>(R.id.conf_btn)
 
+        dialogTitle.text = title
+        dialogMessage.text = message
+        dialogButton.text = buttonText
+        dialogButton.setOnClickListener {
+            onClickAction()
+        }
 
-        AnimatorSet().apply {
-            playSequentially(
-                title,
-                nameTextView,
-                nameEditTextLayout,
-                emailTextView,
-                emailEditTextLayout,
-                passwordTextView,
-                passwordEditTextLayout,
-                signup
-            )
-            startDelay = 100
-        }.start()
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        dialogButton.setOnClickListener {
+            onClickAction()
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
+
 }
